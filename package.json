@@ -1,0 +1,38 @@
+{
+  "name": "employee_directory",
+  "version": "0.1.0",
+  "description": "NodeJS project site to practice developing a single page web application using node.",
+  "main": "app.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kylecarter/employee_directory.git"
+  },
+  "keywords": [
+    "nodejs",
+    "node",
+    "handlebars",
+    "coffeescript",
+    "sass",
+    "expressjs",
+    "monogodb",
+    "jquery"
+  ],
+  "author": "Kyle A. Carter",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kylecarter/employee_directory/issues"
+  },
+  "homepage": "https://github.com/kylecarter/employee_directory#readme",
+  "devDependencies": {
+    "bower": "^1.4.1",
+    "grunt": "^0.4.5",
+    "grunt-contrib-coffee": "^0.13.0",
+    "grunt-contrib-handlebars": "^0.10.2",
+    "grunt-contrib-uglify": "^0.9.1",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-sass": "^1.0.0"
+  }
+}
