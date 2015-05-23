@@ -1,4 +1,5 @@
 {
+  "private": true,
   "name": "employee_directory",
   "version": "0.1.0",
   "description": "NodeJS project site to practice developing a single page web application using node.",
