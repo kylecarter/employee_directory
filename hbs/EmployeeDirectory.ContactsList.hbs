@@ -1,0 +1,25 @@
+<section id="contactslist">
+	<h2>My Contacts</h2>
+	<ul>
+		{{#each contact}}
+		<li>
+			<a href="javascript:;">
+				<figure class="contact-avatar">
+					{{#if avatar}}
+					<img src="{{ avatar }}" alt="{{ first_name }} {{ last_name }} profile photo">
+					{{else}}
+					<span>&#xf007;</span>
+					{{/if}}
+				</figure>
+				<strong>{{ first_name }} {{ last_name }}</strong>
+			</a>
+			<address>
+				<button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				{{ street_address }} <br>
+				{{ city }}, {{ state }} {{ zip }} <br>
+				{{ email }}
+			</address>
+		</li>
+		{{/each}}
+	</ul>
+</section>
