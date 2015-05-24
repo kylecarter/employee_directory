@@ -1,0 +1,4 @@
+@mixin list($type) {
+	list-style: $type;
+	margin-left: 1em;
+}

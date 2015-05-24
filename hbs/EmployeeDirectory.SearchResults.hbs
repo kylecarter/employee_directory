@@ -1,0 +1,54 @@
+<section id="results">
+	<h2>Search Results</h2>
+	<ul>
+		{{#each result}}
+		{{#if admin}}
+		<li class="row">
+			<a class="col-sm-12 col-md-6 col-lg-6" href="javascript:;">
+				<figure class="contact-avatar">
+					{{#if avatar}}
+					<img src="{{ avatar }}" alt="{{ first_name }} {{ last_name }} profile photo">
+					{{else}}
+					<span>&#xf007;</span>
+					{{/if}}
+				</figure>
+				<strong>{{ first_name }} {{ last_name }}</strong>
+			</a>
+			<div class="col-sm-12 col-md-6 col-lg-6">
+				<div class="btn-group">
+					<button type="button" class="btn btn-default" title="Edit">&#xf044;</button>
+					<button type="button" class="btn btn-default" title="Add">&#xf067;</button>
+					<button type="button" class="btn btn-default" title="Make Admin">&#xf0e3;</button>
+					<button type="button" class="btn btn-default" title="Delete">&#xf014;</button>
+				</div>
+			</div>
+			<address>
+				<button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				{{ street_address }} <br>
+				{{ city }}, {{ state }} {{ zip }} <br>
+				{{ email }}
+			</address>
+		</li>
+		{{else}}
+		<li>
+			<a href="javascript:;">
+				<figure class="contact-avatar">
+					{{#if avatar}}
+					<img src="{{ avatar }}" alt="{{ first_name }} {{ last_name }} profile photo">
+					{{else}}
+					<span>&#xf007;</span>
+					{{/if}}
+				</figure>
+				<strong>{{ first_name }} {{ last_name }}</strong>
+			</a>
+			<address>
+				<button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				{{ street_address }} <br>
+				{{ city }}, {{ state }} {{ zip }} <br>
+				{{ email }}
+			</address>
+		</li>
+		{{/if}}
+		{{/each}}
+	</ul>
+</section>

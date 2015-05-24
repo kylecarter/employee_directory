@@ -1,0 +1,59 @@
+@mixin border-radius($amount) {
+	-webkit-border-radius: $amount;
+	-moz-border-radius: $amount;
+	-ms-border-radius: $amount;
+	-o-border-radius: $amount;
+	border-radius: $amount;
+}
+@mixin border-radius-top($amount) {
+	-webkit-border-top-left-radius: $amount;
+	-moz-border-radius-top-left: $amount;
+	-ms-border-radius-top-left: $amount;
+	-o-border-radius-top-left: $amount;
+	border-top-left-radius: $amount;
+	-webkit-border-top-right-radius: $amount;
+	-moz-border-radius-top-right: $amount;
+	-ms-border-radius-top-right: $amount;
+	-o-border-radius-top-right: $amount;
+	border-top-right-radius: $amount;
+}
+@mixin border-radius-bottom($amount) {
+	-webkit-border-bottom-left-radius: $amount;
+	-moz-border-radius-bottom-left: $amount;
+	-ms-border-radius-bottom-left: $amount;
+	-o-border-radius-bottom-left: $amount;
+	border-bottom-left-radius: $amount;
+	-webkit-border-bottom-right-radius: $amount;
+	-moz-border-radius-bottom-right: $amount;
+	-ms-border-radius-bottom-right: $amount;
+	-o-border-radius-bottom-right: $amount;
+	border-bottom-right-radius: $amount;
+}
+@mixin border-radius-top-left($amount) {
+	-webkit-border-top-left-radius: $amount;
+	-moz-border-radius-top-left: $amount;
+	-ms-border-radius-top-left: $amount;
+	-o-border-radius-top-left: $amount;
+	border-top-left-radius: $amount;
+}
+@mixin border-radius-bottom-left($amount) {
+	-webkit-border-bottom-left-radius: $amount;
+	-moz-border-radius-bottom-left: $amount;
+	-ms-border-radius-bottom-left: $amount;
+	-o-border-radius-bottom-left: $amount;
+	border-bottom-left-radius: $amount;
+}
+@mixin border-radius-top-right($amount) {
+	-webkit-border-top-right-radius: $amount;
+	-moz-border-radius-top-right: $amount;
+	-ms-border-radius-top-right: $amount;
+	-o-border-radius-top-right: $amount;
+	border-top-right-radius: $amount;
+}
+@mixin border-radius-bottom-right($amount) {
+	-webkit-border-bottom-right-radius: $amount;
+	-moz-border-radius-bottom-right: $amount;
+	-ms-border-radius-bottom-right: $amount;
+	-o-border-radius-bottom-right: $amount;
+	border-bottom-right-radius: $amount;
+}

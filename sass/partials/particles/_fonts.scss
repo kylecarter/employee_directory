@@ -1,0 +1,6 @@
+$sans: 'Roboto', $helvetica;
+$serif: 'Roboto Slab', $georgia;
+@mixin fontawesome($char) {
+	font-family: 'FontAwesome';
+	content: "'\\" + $char + "'";
+}
