@@ -12,15 +12,33 @@ module.exports = function(grunt) {
 	    },
 		coffee: {
 		  compile: {
+		  	options: {
+		  		bare: true
+		  	},
 		    files: {
-		      'static_src/js/controller.js' : 'coffee/*.coffee'
+		      'static_src/js/controller.js' : [
+		      	'coffee/EmployeeDirectory.coffee',
+		      	'coffee/modules/utils/EmployeeDirectory.utils.coffee',
+		      	'coffee/modules/utils/EmployeeDirectory.create.coffee',
+		      	'coffee/modules/utils/EmployeeDirectory.delete.coffee',
+		      	'coffee/modules/utils/EmployeeDirectory.premissions.coffee',
+		      	'coffee/modules/utils/EmployeeDirectory.read.coffee',
+		      	'coffee/modules/utils/EmployeeDirectory.update.coffee',
+		      	'coffee/modules/states/EmployeeDirectory.contact.coffee',
+		      	'coffee/modules/states/EmployeeDirectory.login.coffee',
+		      	'coffee/modules/states/EmployeeDirectory.notfound.coffee',
+		      	'coffee/modules/states/EmployeeDirectory.profile.coffee',
+		      	'coffee/modules/states/EmployeeDirectory.reset.coffee',
+		      	'coffee/modules/states/EmployeeDirectory.search.coffee',
+		      	'coffee/EmployeeDirectory.shell.coffee',
+		      ]
 		    }
 		  }
 		},
 		handlebars: {
 			compile: {
 				options: {
-					namespace: "EmployeeDirectory"
+					namespace: "EmployeeDirectoryViews"
 				},
 				files: {
 					'static_src/js/view.js' : 'hbs/**/*.hbs'

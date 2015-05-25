@@ -12,7 +12,16 @@
 		.log-in__cmnpt {
 			margin-bottom: 33px;
 			input[type=text], input[type=password] {
-				@include inputs(medium,$serif,0,#333,#333);
+				@include inputs(medium,$serif,0);
+			}
+			&.has-error {
+				label.has-error {
+					color: inherit;
+					display: block;
+					font-weight: 400;
+					margin-top: 6px;
+					font-size: 0.775em;
+				}
 			}
 		}
 		.disclosure {
