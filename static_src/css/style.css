@@ -136,6 +136,9 @@
   .loggedout #log-in .disclosure {
     padding: 6px 0; }
 
+.notfound .panel {
+  background: #ddd; }
+
 .reset-pswrd {
   background: #fff url("../img/login-bg.jpg") no-repeat 0 0;
   -webkit-background-size: cover;

@@ -53,18 +53,17 @@ EmployeeDirectory.login = do ->
     return
 
   doFakeLogin = (usr,pswrd)->
-    verified = EmployeeDirectory.read.verifyUser(usr.val(),pswrd.val())
-    if !verified
+    isUser = EmployeeDirectory.read.verifyUser(usr.val(),pswrd.val())
+    if !isUser
       form.after('<div class="container-fluid"><div class="col-sm-12"><p style="margin-top: 18px; font-size: 0.775em;">The information provided does not match a known employee. Please check the information you entered and try again. If you contine to have problems contact IT.</p></div></div>')
     else
-      console.log 'fired call profile'
       $.uriAnchor.setAnchor
         page: 'profile'
         _page:
-          id: verified.employee_id
+          id: isUser.employee_id
       $.cookie('loggedin', 'yes')
-      $.cookie('user', verified.employee_id)
-      EmployeeDirectory.profile.initModule(verified)
+      $.cookie('user', isUser.employee_id)
+      EmployeeDirectory.profile.configModule(isUser)
     return
 
   {

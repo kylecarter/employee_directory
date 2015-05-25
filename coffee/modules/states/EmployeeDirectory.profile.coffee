@@ -11,31 +11,29 @@ EmployeeDirectory.profile = do ->
     status: EmployeeDirectory.utils.getLoginStatus()
     anchor: EmployeeDirectory.utils.getAppState()
 
-  configModule = (userID)->
-    isUser = EmployeeDirectory.read.validateUser(userID)
-    if !isUser
+  configModule = (data)->
+    config.params = if data.employee_id? && data.employee_id != undefined then data else EmployeeDirectory.read.validateUser(data)
+
+    if !config.params
       $.uriAnchor.setAnchor
-        page: '404'
+        page: 'p404'
       $.removeCookie('loggedin')
       $.removeCookie('user')
-      EmployeeDirectory.notfound.initModule()
+      EmployeeDirectory.notfound.configModule()
     else
-      initModule(isUser)
+      EmployeeDirectory.container.html (old,i)->
+        return config.templates.shell(config.params)
 
+    initModule()
     return
 
   buildProfile = ()->
-    console.log config.params
-    EmployeeDirectory.container.html (old,i)->
-      return config.templates.shell(config.params)
     return
 
   initModule = (data)->
-    config.params = data
     buildProfile()
     return
 
   {
     configModule: configModule
-    initModule: initModule
   }

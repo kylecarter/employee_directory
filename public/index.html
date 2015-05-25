@@ -17,7 +17,7 @@
 				employee_id: '1',
 				first_name: 'Kyle',
 				last_name: 'Carter',
-				job_title: 'UI Developer',
+				title: 'UI Developer',
 				street_address: '8805 North Plaza Apt 2461',
 				city: 'Austin',
 				state: 'Texas',
@@ -45,9 +45,6 @@
 		$.removeCookie('user');
 		$(document).ready(function() {
 			EmployeeDirectory.initApp();
-			$(window).on('hashchange', function() {
-				EmployeeDirectory.initApp();
-			});
 		});
 	</script>
 </head>

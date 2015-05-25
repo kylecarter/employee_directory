@@ -1,29 +1,30 @@
 var EmployeeDirectory;
 
 EmployeeDirectory = (function() {
-  var initApp;
+  var initApp, state, watchHashChange, watchPageLoad;
+  state = new Object();
+  watchPageLoad = function(state) {
+    $(document).ready(function() {
+      EmployeeDirectory.utils.handleHashValues(state);
+    });
+  };
+  watchHashChange = function() {
+    state = {
+      status: EmployeeDirectory.utils.getLoginStatus(),
+      anchor: EmployeeDirectory.utils.getAppState()
+    };
+    EmployeeDirectory.utils.handleHashValues(state);
+  };
   initApp = function() {
-    var state, userID;
     state = {
       status: EmployeeDirectory.utils.getLoginStatus(),
       anchor: EmployeeDirectory.utils.getAppState()
     };
     this.container = $('#application-data');
-    console.log(state, $.cookie());
-    if (state.anchor.page === 'reset' && !state.status) {
-      console.log('reset password');
-      EmployeeDirectory.reset.configModule(this.container);
-    } else if (state.status && state.anchor.page === 'profile' && (($.cookie('user') != null) || state.anchor.user)) {
-      console.log('user profile: ' + $.cookie('user'));
-      userID = $.cookie('user') == null ? $.cookie('user') : state.anchor.user;
-      EmployeeDirectory.profile.configModule(this.container, userID);
-    } else if (state.anchor.page === '404') {
-      console.log('not found');
-      EmployeeDirectory.notfound.configModule(this.container);
-    } else {
-      console.log('login');
-      EmployeeDirectory.shell.initModule(this.container);
-    }
+    watchPageLoad(state);
+    $(window).on('hashchange', function() {
+      watchHashChange();
+    });
   };
   return {
     initApp: initApp
@@ -31,7 +32,7 @@ EmployeeDirectory = (function() {
 })();
 
 EmployeeDirectory.utils = (function() {
-  var getAppState, getLoginStatus, hideLoading, showLoading;
+  var getAppState, getLoginStatus, handleHashValues, hideLoading, showLoading;
   getLoginStatus = function() {
     var status;
     if (($.cookie('loggedin') != null) && $.cookie('loggedin') !== 'no') {
@@ -52,11 +53,68 @@ EmployeeDirectory.utils = (function() {
   hideLoading = function() {
     return $('.spinner').hide();
   };
+  handleHashValues = function(state) {
+    var content, hashHandlers;
+    content = $('#content');
+    console.log(state, $.cookie());
+    hashHandlers = {
+      reset: function() {
+        if (content.hasClass('reset-pswrd')) {
+          return false;
+        } else {
+          console.log('reset password');
+          EmployeeDirectory.reset.configModule();
+        }
+      },
+      profile: function() {
+        if (content.hasClass('usr-profile')) {
+          return false;
+        } else {
+          console.log('user profile: ' + $.cookie('user'));
+          EmployeeDirectory.profile.configModule(state.anchor.user);
+        }
+      },
+      p404: function() {
+        if (content.hasClass('notfound')) {
+          return false;
+        } else {
+          console.log('not found');
+          EmployeeDirectory.notfound.configModule();
+        }
+      },
+      signin: function() {
+        if (content.hasClass('loggedout')) {
+          return false;
+        } else {
+          console.log('login');
+          EmployeeDirectory.shell.initModule();
+        }
+      }
+    };
+    if (content.length > 1) {
+      if (state.status) {
+        hashHandlers[state.anchor.page]();
+      } else if (state.anchor.page === 'reset') {
+        hashHandlers.reset();
+      } else {
+        hashHandlers.signin();
+      }
+    } else {
+      if (state.anchor.page === 'reset') {
+        hashHandlers.reset();
+      } else if (state.anchor.page === 'p404') {
+        hashHandlers.p404();
+      } else {
+        hashHandlers.signin();
+      }
+    }
+  };
   return {
     getLoginStatus: getLoginStatus,
     getAppState: getAppState,
     showLoading: showLoading,
-    hideLoading: hideLoading
+    hideLoading: hideLoading,
+    handleHashValues: handleHashValues
   };
 })();
 
@@ -221,21 +279,20 @@ EmployeeDirectory.login = (function() {
     });
   };
   doFakeLogin = function(usr, pswrd) {
-    var verified;
-    verified = EmployeeDirectory.read.verifyUser(usr.val(), pswrd.val());
-    if (!verified) {
+    var isUser;
+    isUser = EmployeeDirectory.read.verifyUser(usr.val(), pswrd.val());
+    if (!isUser) {
       form.after('<div class="container-fluid"><div class="col-sm-12"><p style="margin-top: 18px; font-size: 0.775em;">The information provided does not match a known employee. Please check the information you entered and try again. If you contine to have problems contact IT.</p></div></div>');
     } else {
-      console.log('fired call profile');
       $.uriAnchor.setAnchor({
         page: 'profile',
         _page: {
-          id: verified.employee_id
+          id: isUser.employee_id
         }
       });
       $.cookie('loggedin', 'yes');
-      $.cookie('user', verified.employee_id);
-      EmployeeDirectory.profile.initModule(verified);
+      $.cookie('user', isUser.employee_id);
+      EmployeeDirectory.profile.configModule(isUser);
     }
   };
   return {
@@ -292,33 +349,28 @@ EmployeeDirectory.profile = (function() {
     status: EmployeeDirectory.utils.getLoginStatus(),
     anchor: EmployeeDirectory.utils.getAppState()
   };
-  configModule = function(userID) {
-    var isUser;
-    isUser = EmployeeDirectory.read.validateUser(userID);
-    if (!isUser) {
+  configModule = function(data) {
+    config.params = (data.employee_id != null) && data.employee_id !== void 0 ? data : EmployeeDirectory.read.validateUser(data);
+    if (!config.params) {
       $.uriAnchor.setAnchor({
-        page: '404'
+        page: 'p404'
       });
       $.removeCookie('loggedin');
       $.removeCookie('user');
-      EmployeeDirectory.notfound.initModule();
+      EmployeeDirectory.notfound.configModule();
     } else {
-      initModule(isUser);
+      EmployeeDirectory.container.html(function(old, i) {
+        return config.templates.shell(config.params);
+      });
     }
+    initModule();
   };
-  buildProfile = function() {
-    console.log(config.params);
-    EmployeeDirectory.container.html(function(old, i) {
-      return config.templates.shell(config.params);
-    });
-  };
+  buildProfile = function() {};
   initModule = function(data) {
-    config.params = data;
     buildProfile();
   };
   return {
-    configModule: configModule,
-    initModule: initModule
+    configModule: configModule
   };
 })();
 
