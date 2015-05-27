@@ -1,4 +1,5 @@
 EmployeeDirectory.notfound = do ->
+  'use strict'
 
   config =
     params: null

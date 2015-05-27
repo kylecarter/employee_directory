@@ -1,15 +1,25 @@
 this["EmployeeDirectoryViews"] = this["EmployeeDirectoryViews"] || {};
 
 this["EmployeeDirectoryViews"]["hbs/ContactsList.hbs"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
+    var stack1;
+
+  return "	<ul>\n"
+    + ((stack1 = helpers.each.call(depth0,(depth0 != null ? depth0.result : depth0),{"name":"each","hash":{},"fn":this.program(2, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + "	</ul>\n";
+},"2":function(depth0,helpers,partials,data) {
+    var stack1;
+
+  return ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.admin : depth0),{"name":"if","hash":{},"fn":this.program(3, data, 0),"inverse":this.program(8, data, 0),"data":data})) != null ? stack1 : "");
+},"3":function(depth0,helpers,partials,data) {
     var stack1, helper, alias1=helpers.helperMissing, alias2="function", alias3=this.escapeExpression;
 
-  return "		<li>\n			<a href=\"javascript:;\">\n				<figure class=\"contact-avatar\">\n"
-    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.avatar : depth0),{"name":"if","hash":{},"fn":this.program(2, data, 0),"inverse":this.program(4, data, 0),"data":data})) != null ? stack1 : "")
+  return "		<li class=\"row\">\n			<a class=\"col-sm-12 col-md-6 col-lg-6\" href=\"javascript:;\">\n				<figure class=\"contact-avatar\">\n"
+    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.avatar : depth0),{"name":"if","hash":{},"fn":this.program(4, data, 0),"inverse":this.program(6, data, 0),"data":data})) != null ? stack1 : "")
     + "				</figure>\n				<strong>"
     + alias3(((helper = (helper = helpers.first_name || (depth0 != null ? depth0.first_name : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"first_name","hash":{},"data":data}) : helper)))
     + " "
     + alias3(((helper = (helper = helpers.last_name || (depth0 != null ? depth0.last_name : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"last_name","hash":{},"data":data}) : helper)))
-    + "</strong>\n			</a>\n			<address>\n				<button type=\"button\" class=\"close\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>\n				"
+    + "</strong>\n			</a>\n			<div class=\"col-sm-12 col-md-6 col-lg-6\">\n				<div class=\"btn-group\">\n					<button type=\"button\" class=\"btn btn-default\" title=\"Edit\">&#xf044;</button>\n					<button type=\"button\" class=\"btn btn-default\" title=\"Add\">&#xf067;</button>\n					<button type=\"button\" class=\"btn btn-default\" title=\"Make Admin\">&#xf0e3;</button>\n					<button type=\"button\" class=\"btn btn-default\" title=\"Delete\">&#xf014;</button>\n				</div>\n			</div>\n			<address>\n				<button type=\"button\" class=\"close\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>\n				"
     + alias3(((helper = (helper = helpers.street_address || (depth0 != null ? depth0.street_address : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"street_address","hash":{},"data":data}) : helper)))
     + " <br>\n				"
     + alias3(((helper = (helper = helpers.city || (depth0 != null ? depth0.city : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"city","hash":{},"data":data}) : helper)))
@@ -20,7 +30,7 @@ this["EmployeeDirectoryViews"]["hbs/ContactsList.hbs"] = Handlebars.template({"1
     + " <br>\n				"
     + alias3(((helper = (helper = helpers.email || (depth0 != null ? depth0.email : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"email","hash":{},"data":data}) : helper)))
     + "\n			</address>\n		</li>\n";
-},"2":function(depth0,helpers,partials,data) {
+},"4":function(depth0,helpers,partials,data) {
     var helper, alias1=helpers.helperMissing, alias2="function", alias3=this.escapeExpression;
 
   return "					<img src=\""
@@ -30,14 +40,36 @@ this["EmployeeDirectoryViews"]["hbs/ContactsList.hbs"] = Handlebars.template({"1
     + " "
     + alias3(((helper = (helper = helpers.last_name || (depth0 != null ? depth0.last_name : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"last_name","hash":{},"data":data}) : helper)))
     + " profile photo\">\n";
-},"4":function(depth0,helpers,partials,data) {
+},"6":function(depth0,helpers,partials,data) {
     return "					<span>&#xf007;</span>\n";
+},"8":function(depth0,helpers,partials,data) {
+    var stack1, helper, alias1=helpers.helperMissing, alias2="function", alias3=this.escapeExpression;
+
+  return "		<li class=\"row\">\n			<a class=\"col-sm-12 col-md-6 col-lg-6\" href=\"javascript:;\">\n				<figure class=\"contact-avatar\">\n"
+    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.avatar : depth0),{"name":"if","hash":{},"fn":this.program(4, data, 0),"inverse":this.program(6, data, 0),"data":data})) != null ? stack1 : "")
+    + "				</figure>\n				<strong>"
+    + alias3(((helper = (helper = helpers.first_name || (depth0 != null ? depth0.first_name : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"first_name","hash":{},"data":data}) : helper)))
+    + " "
+    + alias3(((helper = (helper = helpers.last_name || (depth0 != null ? depth0.last_name : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"last_name","hash":{},"data":data}) : helper)))
+    + "</strong>\n			</a>\n			<div class=\"col-sm-12 col-md-6 col-lg-6\">\n				<div class=\"btn-group\">\n					<button type=\"button\" class=\"btn btn-default\" title=\"Add to Contacts\">&#xf067;</button>\n					<button type=\"button\" class=\"btn btn-default\" title=\"Remove from Contacts\">&#xf014;</button>\n				</div>\n			</div>\n			<address>\n				<button type=\"button\" class=\"close\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>\n				"
+    + alias3(((helper = (helper = helpers.street_address || (depth0 != null ? depth0.street_address : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"street_address","hash":{},"data":data}) : helper)))
+    + " <br>\n				"
+    + alias3(((helper = (helper = helpers.city || (depth0 != null ? depth0.city : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"city","hash":{},"data":data}) : helper)))
+    + ", "
+    + alias3(((helper = (helper = helpers.state || (depth0 != null ? depth0.state : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"state","hash":{},"data":data}) : helper)))
+    + " "
+    + alias3(((helper = (helper = helpers.zip || (depth0 != null ? depth0.zip : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"zip","hash":{},"data":data}) : helper)))
+    + " <br>\n				"
+    + alias3(((helper = (helper = helpers.email || (depth0 != null ? depth0.email : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"email","hash":{},"data":data}) : helper)))
+    + "\n			</address>\n		</li>\n";
+},"10":function(depth0,helpers,partials,data) {
+    return "	<p>You have no saved contacts. Start searching now to find your colleagues.</p>\n";
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
     var stack1;
 
-  return "<section id=\"contactslist\">\n	<h2>My Contacts</h2>\n	<ul>\n"
-    + ((stack1 = helpers.each.call(depth0,(depth0 != null ? depth0.contact : depth0),{"name":"each","hash":{},"fn":this.program(1, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
-    + "	</ul>\n</section>\n";
+  return "<section id=\"contactslist\">\n	<h2>My Contacts</h2>\n"
+    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.contacts : depth0),{"name":"if","hash":{},"fn":this.program(1, data, 0),"inverse":this.program(10, data, 0),"data":data})) != null ? stack1 : "")
+    + "</section>\n";
 },"useData":true});
 
 this["EmployeeDirectoryViews"]["hbs/EmployeeNotFound.hbs"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -91,13 +123,13 @@ this["EmployeeDirectoryViews"]["hbs/SearchResults.hbs"] = Handlebars.template({"
 },"7":function(depth0,helpers,partials,data) {
     var stack1, helper, alias1=helpers.helperMissing, alias2="function", alias3=this.escapeExpression;
 
-  return "		<li>\n			<a href=\"javascript:;\">\n				<figure class=\"contact-avatar\">\n"
+  return "		<li class=\"row\">\n			<a class=\"col-sm-12 col-md-6 col-lg-6\" href=\"javascript:;\">\n				<figure class=\"contact-avatar\">\n"
     + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.avatar : depth0),{"name":"if","hash":{},"fn":this.program(3, data, 0),"inverse":this.program(5, data, 0),"data":data})) != null ? stack1 : "")
     + "				</figure>\n				<strong>"
     + alias3(((helper = (helper = helpers.first_name || (depth0 != null ? depth0.first_name : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"first_name","hash":{},"data":data}) : helper)))
     + " "
     + alias3(((helper = (helper = helpers.last_name || (depth0 != null ? depth0.last_name : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"last_name","hash":{},"data":data}) : helper)))
-    + "</strong>\n			</a>\n			<address>\n				<button type=\"button\" class=\"close\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>\n				"
+    + "</strong>\n			</a>\n			<div class=\"col-sm-12 col-md-6 col-lg-6\">\n				<div class=\"btn-group\">\n					<button type=\"button\" class=\"btn btn-default\" title=\"Add to Contacts\">&#xf067;</button>\n					<button type=\"button\" class=\"btn btn-default\" title=\"Remove from Contacts\">&#xf014;</button>\n				</div>\n			</div>\n			<address>\n				<button type=\"button\" class=\"close\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>\n				"
     + alias3(((helper = (helper = helpers.street_address || (depth0 != null ? depth0.street_address : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"street_address","hash":{},"data":data}) : helper)))
     + " <br>\n				"
     + alias3(((helper = (helper = helpers.city || (depth0 != null ? depth0.city : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"city","hash":{},"data":data}) : helper)))
@@ -124,6 +156,8 @@ this["EmployeeDirectoryViews"]["hbs/UserProfile.hbs"] = Handlebars.template({"1"
     + "\" alt=\"user profile photo\"></figure>\n";
 },"3":function(depth0,helpers,partials,data) {
     return "						<figure id=\"avatar\"><span>&#xf007;</span></figure>\n";
+},"5":function(depth0,helpers,partials,data) {
+    return "		<div class=\"row\">\n			<div class=\"col-sm-12\">\n				<div id=\"employee-add\"><button class=\"btn btn-primary\">Add Employee</button></div>\n			</div>\n		</div>\n";
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
     var stack1, helper, alias1=helpers.helperMissing, alias2="function", alias3=this.escapeExpression;
 
@@ -135,5 +169,7 @@ this["EmployeeDirectoryViews"]["hbs/UserProfile.hbs"] = Handlebars.template({"1"
     + alias3(((helper = (helper = helpers.last_name || (depth0 != null ? depth0.last_name : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"last_name","hash":{},"data":data}) : helper)))
     + " <br> <small>"
     + alias3(((helper = (helper = helpers.title || (depth0 != null ? depth0.title : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"title","hash":{},"data":data}) : helper)))
-    + "</small></h1>\n					</div>\n				</div>\n			</div>\n		</div>\n	</div>\n</header>\n<section id=\"content\" class=\"usr-profile\">\n	<div class=\"container\">\n		<div class=\"row\" id=\"wrapper\">\n			<div class=\"col-sm-12\">\n				\n			</div>\n		</div>\n	</div>\n</section>\n";
+    + "</small></h1>\n					</div>\n				</div>\n			</div>\n		</div>\n	</div>\n</header>\n<section id=\"content\" class=\"usr-profile\">\n	<div class=\"container\">\n"
+    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.admin : depth0),{"name":"if","hash":{},"fn":this.program(5, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + "		<div class=\"row\" id=\"wrapper\">\n			<div class=\"col-sm-12\">\n				\n			</div>\n		</div>\n	</div>\n</section>\n";
 },"useData":true});

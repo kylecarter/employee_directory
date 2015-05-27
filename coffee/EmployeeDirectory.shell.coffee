@@ -4,15 +4,16 @@ EmployeeDirectory.shell = do ->
     status: EmployeeDirectory.utils.getLoginStatus()
     anchor: EmployeeDirectory.utils.getAppState()
 
-  setAppState = (container)->
-    if !state.status
-      EmployeeDirectory.login.configModule(container)
-    else
-      EmployeeDirectory.profile.configModule(container)
-    return
+  # setAppState = ()->
+  #   if !state.status
+  #     EmployeeDirectory.login.configModule()
+  #   else
+  #     EmployeeDirectory.profile.configModule()
+  #   return
 
-  initModule = (container)->
-    setAppState(container)
+  initModule = ()->
+    # setAppState()
+    EmployeeDirectory.utils.handleHashValues()
     return
 
   {

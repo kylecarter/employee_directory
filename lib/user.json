@@ -1,0 +1,57 @@
+{
+	"type": "object",
+	"additionalProperties": false,
+	"properties": {
+		"_id": {
+			"type": "string"
+		},
+		"employee_id": {
+			"type": "string"
+		},
+		"is_online": {
+			"type": "boolean"
+		},
+		"first_name": {
+			"type": "string"
+		},
+		"last_name": {
+			"type": "string"
+		},
+		"title": {
+			"type": "string"
+		},
+		"street_address": {
+			"type": "string"
+		},
+		"street_address_addtnal": {
+			"type": "string"
+		},
+		"city": {
+			"type": "string"
+		},
+		"state": {
+			"type": "string"
+		},
+		"zip": {
+			"type": "string"
+		},
+		"phone": {
+			"type": "string"
+		},
+		"email": {
+			"type": "string"
+		},
+		"password": {
+			"type": "string"
+		},
+		"avatar": {
+			"type": "string"
+		},
+		"contacts": {
+			"type": "array"
+		},
+		"admin": {
+			"type": "boolean"
+		}
+	}
+}

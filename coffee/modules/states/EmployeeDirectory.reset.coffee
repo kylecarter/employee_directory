@@ -1,4 +1,5 @@
 EmployeeDirectory.reset = do ->
+  'use strict'
 
   config =
     params: null

@@ -1,4 +1,5 @@
 EmployeeDirectory.utils = do ->
+     'use strict'
 
      getLoginStatus = ()->
           if $.cookie('loggedin')? and $.cookie('loggedin') != 'no'
@@ -19,50 +20,47 @@ EmployeeDirectory.utils = do ->
 
      handleHashValues = (state)->
           content = $('#content')
-          console.log state, $.cookie()
+          console.log $.cookie(), state
           hashHandlers =
                reset: ->
                     if content.hasClass 'reset-pswrd'
                          false
                     else
-                         console.log('reset password')
                          EmployeeDirectory.reset.configModule()
                          return
-               profile: ->
+               employee: ->
+                    console.log state.anchor._page.id
                     if content.hasClass 'usr-profile'
                          false
                     else
-                         console.log('user profile: ' + $.cookie('user'))
-                         EmployeeDirectory.profile.configModule(state.anchor.user)
+                         EmployeeDirectory.employee.configModule(state.anchor._page.id)
                          return
                p404: ->
                     if content.hasClass 'notfound'
                          false
                     else
-                         console.log('not found')
                          EmployeeDirectory.notfound.configModule()
                          return
                signin: ->
                     if content.hasClass 'loggedout'
                          false
                     else
-                         console.log('login')
-                         EmployeeDirectory.shell.initModule()
+                         EmployeeDirectory.login.configModule()
                          return
-          if content.length > 1
-               if state.status
-                    hashHandlers[state.anchor.page]()
-               else if state.anchor.page == 'reset'
-                    hashHandlers.reset()
-               else
-                    hashHandlers.signin()
+          if state.status && state.anchor.page == 'employee'
+               hashHandlers.employee()
+          if state.anchor.page == 'reset'
+               $.cookie('loggined', 'no')
+               $.removeCookie('user')
+               hashHandlers.reset()
+          else if state.anchor.page == 'p404'
+               $.cookie('loggined', 'no')
+               $.removeCookie('user')
+               hashHandlers.p404()
           else
-               if state.anchor.page == 'reset'
-                    hashHandlers.reset()
-               else if state.anchor.page == 'p404'
-                    hashHandlers.p404()
-               else
-                    hashHandlers.signin()
+               $.cookie('loggined', 'no')
+               $.removeCookie('user')
+               hashHandlers.signin()
           return
 
      {

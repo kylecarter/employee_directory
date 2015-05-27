@@ -30,8 +30,8 @@
 			</address>
 		</li>
 		{{else}}
-		<li>
-			<a href="javascript:;">
+		<li class="row">
+			<a class="col-sm-12 col-md-6 col-lg-6" href="javascript:;">
 				<figure class="contact-avatar">
 					{{#if avatar}}
 					<img src="{{ avatar }}" alt="{{ first_name }} {{ last_name }} profile photo">
@@ -41,13 +41,18 @@
 				</figure>
 				<strong>{{ first_name }} {{ last_name }}</strong>
 			</a>
+			<div class="col-sm-12 col-md-6 col-lg-6">
+				<div class="btn-group">
+					<button type="button" class="btn btn-default" title="Add to Contacts">&#xf067;</button>
+					<button type="button" class="btn btn-default" title="Remove from Contacts">&#xf014;</button>
+				</div>
+			</div>
 			<address>
 				<button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				{{ street_address }} <br>
 				{{ city }}, {{ state }} {{ zip }} <br>
 				{{ email }}
 			</address>
-			{{!-- {{#isContact contacts}}{{/isContact}} --}}
 		</li>
 		{{/if}}
 		{{/each}}

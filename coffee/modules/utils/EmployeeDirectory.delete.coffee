@@ -1,4 +1,5 @@
 EmployeeDirectory.delete = do ->
+  'use strict'
 
   config = new Object()
   state = new Object()
