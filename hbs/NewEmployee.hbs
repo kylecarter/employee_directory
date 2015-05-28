@@ -1,0 +1,50 @@
+{{#if curprofile}}
+<li class="row" data-eid="{{ employee_id }}" data-oid="{{ _id }}">
+	<a class="col-sm-12 col-md-6 col-lg-6" href="javascript:;">
+		<figure class="contact-avatar">
+			{{#if avatar}}
+			<img src="{{ avatar }}" alt="{{ first_name }} {{ last_name }} profile photo">
+			{{else}}
+			<span>&#xf007;</span>
+			{{/if}}
+		</figure>
+		<strong>{{ first_name }} {{ last_name }}</strong>, {{ title }}
+	</a>
+	<div class="col-sm-12 col-md-6 col-lg-6">
+		<div class="btn-group">
+			<button type="button" class="btn btn-default" title="Edit">&#xf044;</button>
+			<button type="button" class="btn btn-default" title="Make Admin">&#xf0e3;</button>
+			<button type="button" class="btn btn-default" title="Delete">&#xf014;</button>
+		</div>
+	</div>
+	<address>
+		<button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		{{#if street_address}}{{ street_address }} <br>{{/if}}
+		{{#if street_address_addtnal}}{{ street_address_addtnal }} <br>{{/if}}
+		{{#if city}}{{ city }}, {{/if}}{{#if state}}{{ state }} {{/if}}{{#if zip}}{{ zip }} <br>{{/if}}
+		{{ email }}{{#if phone}} <br>
+		{{ phone }}{{/if}}
+	</address>
+</li>
+{{else}}
+<li class="row">
+	<a class="col-sm-12 col-md-6 col-lg-6" href="javascript:;">
+		<figure class="contact-avatar">
+			{{#if avatar}}
+			<img src="{{ avatar }}" alt="{{ first_name }} {{ last_name }} profile photo">
+			{{else}}
+			<span>&#xf007;</span>
+			{{/if}}
+		</figure>
+		<strong>{{ first_name }} {{ last_name }}</strong>, {{ title }}
+	</a>
+	<address>
+		<button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		{{#if street_address}}{{ street_address }} <br>{{/if}}
+		{{#if street_address_addtnal}}{{ street_address_addtnal }} <br>{{/if}}
+		{{#if city}}{{ city }}, {{/if}}{{#if state}}{{ state }} {{/if}}{{#if zip}}{{ zip }} <br>{{/if}}
+		{{ email }}{{#if phone}} <br>
+		{{ phone }}{{/if}}
+	</address>
+</li>
+{{/if}}

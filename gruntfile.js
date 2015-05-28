@@ -70,6 +70,8 @@ module.exports = function(grunt) {
 						'static_src/js/vendors/jquery.event.ue.js',
 						'static_src/js/vendors/jquery.validate.js',
 						'static_src/js/vendors/jquery.cookie.js',
+						'static_src/js/vendors/dropdown.js',
+						'static_src/js/vendors/modal.js',
 						'static_src/js/vendors/handlebars.runtime.js'
 					]
 				}

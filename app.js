@@ -7,8 +7,18 @@ var
 	employee = require('./lib/employee'),
 	makeMongoId = crud.makeMongoId,
 	app = express(),
+	bodyParser = require('body-parser'),
 	server = http.createServer(app);
 
+
+app.configure( function () {
+	app.use( express.logger() );
+	app.use( express.bodyParser() );
+	app.use(bodyParser.urlencoded({ extended: true})); 
+	app.use( express.methodOverride() );
+	app.use( express.static( __dirname + '/public' ) );
+	app.use( app.router );
+});
 
 //Routes
 app.get('/', function(request,response) {
@@ -20,10 +30,10 @@ app.all('/user/*?', function(request,response,next) {
 	next();
 });
 
-app.get('/:obj_type/login/:usr/:pswrd', function(request,response) {
+app.post('/:obj_type/login', function(request,response) {
 	crud.read(
 		request.params.obj_type,
-		{email: request.params.usr, password:  request.params.pswrd},
+		{email: request.query.usr, password:  request.query.pswrd},
 		{},
 		function(map_list) {
 			response.send(map_list);
@@ -31,22 +41,24 @@ app.get('/:obj_type/login/:usr/:pswrd', function(request,response) {
 	);
 });
 
-app.get('/:obj_type/list', function(request,response) {
+
+app.post('/:obj_type/create', function(request,response) {
+	console.log(request.query)
+	crud.construct(
+		request.params.obj_type,
+		request.query,
+		function(result_map) {
+			response.send(result_map);
+		}
+	);
+});
+
+app.get('/:obj_type/read', function(request,response) {
 	crud.read(
 		request.params.obj_type,
 		{}, {},
 		function(map_list) {
 			response.send(map_list);
-		}
-	);
-});
-
-app.post('/:obj_type/create', function(request,response) {
-	crud.construct(
-		request.params.obj_type,
-		request.body,
-		function(result_map) {
-			response.send(result_map);
 		}
 	);
 });
@@ -73,11 +85,22 @@ app.get('/:obj_type/dbread/:id', function(request,response) {
 	);
 });
 
-app.post('/:obj_type/update/:id', function(request,response) {
-	crude.update(
+app.post('/:obj_type/updatepw/:id', function(request,response) {
+	crud.update(
 		request.params.obj_type,
 		{_id: makeMongoId(request.params.id)},
-		request.body,
+		{password:  request.query.pswrd},
+		function(result_map) {
+			response.send(result_map);
+		}
+	);
+});
+
+app.post('/:obj_type/avatar/:id', function(request,response) {
+	crud.update(
+		request.params.obj_type,
+		{_id: makeMongoId(request.params.id)},
+		{avatar:  request.query.graphic},
 		function(result_map) {
 			response.send(result_map);
 		}
@@ -94,13 +117,5 @@ app.get('/:obj_type/delete/:id', function(request,response) {
 	);
 });
 
-
-app.configure( function () {
-	app.use( express.logger() );
-	app.use( express.bodyParser() );
-	app.use( express.methodOverride() );
-	app.use( express.static( __dirname + '/public' ) );
-	app.use( app.router );
-});
 
 server.listen(3000);

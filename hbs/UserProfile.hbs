@@ -1,26 +1,20 @@
 <nav class="navbar navbar-default">
 	<div class="container-fluid">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="/#!employee">Employee Directory</a>
+			<a class="navbar-brand" href="/#!page=employee:id,{{ employee_id }}">Employee Directory</a>
 		</div>
 		<div class="nav navbar-nav navbar-right">
 			<ul class="settings-wrapper">
 				<li class="dropdown">
-					<button class="dropdown-toggle btn btn-default settings-btn" data-toggle="dropdown" role="button" aria-expanded="false">&#xf013;</button>
-					<ul class="dropdown-menu" role="menu">
-						<li><a href="/#!employee">Change Password</a></li>
-						<li><a href="/#!employee">Edit Contacts</a></li>
-						<li><a href="/#!employee">Manage Profile</a></li>
+					<button class="dropdown-toggle btn btn-default settings-btn" id="dropdownMenu1" data-toggle="dropdown" role="button"  data-toggle="dropdown" aria-expanded="false">&#xf013;</button>
+					<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+						<li><button id="change-pswrd" class="js-modal-trigger" data-toggle="modal" data-target="#myModal">Change Password</button></li>
+						<li><button id="update-profile" class="js-modal-trigger" data-toggle="modal" data-target="#myModal">Change Avatar</button></li>
+						<li><button id="loggout" class="js-trigger">Log Out</button></li>
 					</ul>
 				</li>
 			</ul>
 		</div>
-		<form class="navbar-form navbar-right" role="search">
-			<div class="form-group">
-				<input type="text" name="search" id="search" placeholder="Search" class="form-control">
-			</div>
-			<input type="submit" name="search-submit" id="search-submit" value="&#xf002;" class="btn btn-default">
-		</form>
 	</div>
 </nav>
 <header id="hero">
@@ -40,12 +34,12 @@
 		</div>
 	</div>
 </header>
-<section id="content" class="usr-profile">
+<section id="content" class="usr-profile" data-id="{{ _id }}" data-admin="{{ admin }}">
 	<div class="container">
 		{{#if admin}}
 		<div class="row">
 			<div class="col-sm-12">
-				<div id="employee-add"><button class="btn btn-primary">Add Employee</button></div>
+				<div id="employee-add"><button class="btn btn-primary js-modal-trigger" data-toggle="modal" data-target="#myModal">Add Employee</button></div>
 			</div>
 		</div>
 		{{/if}}

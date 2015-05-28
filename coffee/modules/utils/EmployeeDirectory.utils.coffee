@@ -20,7 +20,6 @@ EmployeeDirectory.utils = do ->
 
      handleHashValues = (state)->
           content = $('#content')
-          console.log $.cookie(), state
           hashHandlers =
                reset: ->
                     if content.hasClass 'reset-pswrd'
@@ -29,7 +28,6 @@ EmployeeDirectory.utils = do ->
                          EmployeeDirectory.reset.configModule()
                          return
                employee: ->
-                    console.log state.anchor._page.id
                     if content.hasClass 'usr-profile'
                          false
                     else

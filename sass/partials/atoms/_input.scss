@@ -17,9 +17,9 @@
 		height: 51px;
 	    padding: 0px 15px;
 	} @else {
-		font-size: 0.813rem;
-	    height: 18px;
-	    padding: 0px 10px;
+		font-size: 1.525rem;
+	    height: 33px;
+	    padding: 0px 12px;
 	}
 
 	@include border-radius($radius);
