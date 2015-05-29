@@ -45,7 +45,22 @@ EmployeeDirectory.update = do ->
         return
     return
 
+  doMakeAdmin = (user,trigger)->
+    $.ajax
+      url: '/user/role/'+ user
+      dataType: 'json'
+      type: 'POST'
+      success: (data)->
+        trigger.attr('disabled', 'disabled')
+        return
+      error: (jqXHR,textStatus,errorThrown)->
+        console.log jqXHR,textStatus,errorThrown
+        window.alert('We are having difficulty processing your request please try again later.');
+        return
+    return
+
   {
     doChangePassword : doChangePassword
     doChangeAvatar : doChangeAvatar
+    doMakeAdmin : doMakeAdmin
   }

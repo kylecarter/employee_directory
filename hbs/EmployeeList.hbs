@@ -16,11 +16,11 @@
 			</a>
 			<div class="col-sm-12 col-md-6 col-lg-6">
 				<div class="btn-group">
-					<button type="button" class="btn btn-default" title="Make Admin">&#xf0e3;</button>
-					<button type="button" class="btn btn-default" title="Delete">&#xf014;</button>
+					<button type="button" class="btn btn-default js-trigger-admin"{{#if admin}} disabled="disabled"{{/if}} title="Make Admin">&#xf0e3;</button>
+					<button type="button" class="btn btn-default js-trigger-delete" title="Delete">&#xf014;</button>
 				</div>
 			</div>
-			<address>
+			<address class="address--button-group">
 				{{#if street_address}}{{ street_address }} <br>{{/if}}
 				{{#if street_address_addtnal}}{{ street_address_addtnal }} <br>{{/if}}
 				{{#if city}}{{ city }}, {{/if}}{{#if state}}{{ state }} {{/if}}{{#if zip}}{{ zip }} <br>{{/if}}

@@ -2,8 +2,13 @@ EmployeeDirectory.read = do ->
   'use strict'
 
   config =
+    params: null
     templates:
       employeeslist: EmployeeDirectoryViews['hbs/EmployeeList.hbs']
+
+  getData = (data)->
+    config.params = data
+    return
 
   verifyUser = (usr,pswrd)->
     i = 0
@@ -27,18 +32,17 @@ EmployeeDirectory.read = do ->
             page: 'employee'
             _page:
               id: data[0].employee_id
-          EmployeeDirectory.employee.configModule(data[0])
+          getData(data[0])
         else
           $.uriAnchor.setAnchor
             page: 'p404'
-          EmployeeDirectory.notfound.configModule({})
         return
       error: (jqXHR,textStatus,errorThrown)->
         console.log jqXHR,textStatus,errorThrown
         $.uriAnchor.setAnchor
           page: 'p404'
-        EmployeeDirectory.notfound.configModule({})
         return
+    config.params
 
   doLogIn = (usr,pswrd)->
     $.ajax
@@ -53,7 +57,7 @@ EmployeeDirectory.read = do ->
               id: data[0].employee_id
           $.cookie('loggedin', 'yes')
           $.cookie('user', data[0].employee_id)
-          EmployeeDirectory.employee.configModule(data[0])
+          EmployeeDirectory.utils.setData(data[0])
         else
           EmployeeDirectory.notfound.configModule({})
         return
@@ -70,7 +74,6 @@ EmployeeDirectory.read = do ->
       page: 'signin'
     $.removeCookie('loggedin')
     $.removeCookie('user')
-    EmployeeDirectory.login.configModule()
     return
 
   doListEmployees = (list,isadmin)->
@@ -85,6 +88,7 @@ EmployeeDirectory.read = do ->
         variable.employee = data
         list.html (old,i)->
           return config.templates.employeeslist(variable)
+        EmployeeDirectory.employee.initModule()
         return
       error: (jqXHR,textStatus,errorThrown)->
         console.log jqXHR,textStatus,errorThrown

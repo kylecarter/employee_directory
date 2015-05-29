@@ -15,23 +15,18 @@ EmployeeDirectory.employee = do ->
     anchor: EmployeeDirectory.utils.getAppState()
 
   configModule = (data)->
-    config.params = if data.hasOwnProperty('employee_id') then data else EmployeeDirectory.read.validateUser(data)
+    console.log data
+    config.params = if data == undefined || data == null then EmployeeDirectory.read.validateUser(data) else data
 
     if !config.params
       $.uriAnchor.setAnchor
         page: 'p404'
       $.removeCookie('loggedin')
       $.removeCookie('user')
-      EmployeeDirectory.notfound.configModule()
     else
       EmployeeDirectory.container.html (old,i)->
         return config.templates.shell(config.params)
-
-    initModule()
-    return
-
-  buildProfile = (list)->
-    EmployeeDirectory.read.doListEmployees(list,$('#content').attr('data-admin'))
+      EmployeeDirectory.read.doListEmployees($('#wrapper'),$('#content').attr('data-admin'))
     return
 
   handlePasswordChange = (trigger)->
@@ -106,6 +101,25 @@ EmployeeDirectory.employee = do ->
       return
     return
 
+  handleMakeAdmin = (trigger)->
+    trigger.each ->
+      $this = $(this)
+      $this.on 'click touchend', ->
+        EmployeeDirectory.update.doMakeAdmin($this.parents('li').attr('data-db'),$this)
+        return
+      return
+    return
+
+  handleDeleteEmployee = (trigger)->
+    trigger.each ->
+      $this = $(this)
+      $this.on 'click touchend', ->
+        if window.confirm('Are you sure you want to delete this employee? This action cannot be undone.')
+          EmployeeDirectory.delete.doDeleteEmployee($this.parents('li').attr('data-db'),$this.parents('li'))
+        return
+      return
+    return
+
   handleAddEmployee = (trigger)->
     trigger.on 'click touchend', ->
       $('#myModal').html(config.templates.addemployee({}))
@@ -153,13 +167,15 @@ EmployeeDirectory.employee = do ->
     return
 
   initModule = ()->
-    buildProfile($('#wrapper'))
-    handlePasswordChange($('#change-pswrd.js-modal-trigger'))
-    handleAvatarChange($('#update-profile.js-modal-trigger'))
-    handleLogOut($('#loggout'))
-    handleAddEmployee($('#employee-add .js-modal-trigger'))
+    handleLogOut $('#loggout')
+    handlePasswordChange $('#change-pswrd.js-modal-trigger')
+    handleAvatarChange $('#update-profile.js-modal-trigger')
+    handleAddEmployee $('#employee-add .js-modal-trigger')
+    handleMakeAdmin $('.js-trigger-admin')
+    handleDeleteEmployee $('.js-trigger-delete')
     return
 
   {
    configModule: configModule
+   initModule: initModule
   }

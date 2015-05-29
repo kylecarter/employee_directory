@@ -49,7 +49,6 @@ EmployeeDirectory.login = do ->
     trigger.on 'click touchend', ->
       $.uriAnchor.setAnchor
         page: 'reset'
-      EmployeeDirectory.reset.configModule()
       return
     return
 

@@ -1,5 +1,6 @@
 .usr-profile {
 	#contactslist {
+		h2 {margin: 21px 0 30px;}
 		ul {
 			li {
 				height: 60px;
@@ -45,19 +46,21 @@
 				address {
 					display: none;
 					z-index: 10;
-					top: -174px;
+					top: -126px;
 					background: $white;
 					position: absolute;
 					padding: 12px;
-					max-width: 250px;
+					width: 250px;
 					border: 1px solid #333;
 					$colors: (main: $white, mainTrans: rgba(255,255,255,0), border: #333, borderTrans: rgba(51,51,51,0));
 					@include cssArrow(bottom,true,12,$colors,50%);
 					@include border-radius(4px);
+					&.address--button-group {top: -174px;}
 				}
 				&:hover {
 					address {
-						display: block;
+						display: inline-block;
+						left: -48%;
 					}
 				}
 			}
@@ -66,6 +69,7 @@
 				margin-top: 9px;
 				.btn {
 					font-family: 'FontAwesome';
+					&[disabled] {cursor: not-allowed;}
 				}
 			}
 		}

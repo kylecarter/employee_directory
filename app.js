@@ -96,6 +96,17 @@ app.post('/:obj_type/updatepw/:id', function(request,response) {
 	);
 });
 
+app.post('/:obj_type/role/:id', function(request,response) {
+	crud.update(
+		request.params.obj_type,
+		{_id: makeMongoId(request.params.id)},
+		{admin:  true},
+		function(result_map) {
+			response.send(result_map);
+		}
+	);
+});
+
 app.post('/:obj_type/avatar/:id', function(request,response) {
 	crud.update(
 		request.params.obj_type,

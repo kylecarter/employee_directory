@@ -1,4 +1,7 @@
 @charset "UTF-8";
+.usr-profile #contactslist h2 {
+  margin: 21px 0 30px; }
+
 .usr-profile #contactslist ul li {
   height: 60px;
   background: #ccc;
@@ -50,11 +53,11 @@
   .usr-profile #contactslist ul li address {
     display: none;
     z-index: 10;
-    top: -174px;
+    top: -126px;
     background: #fff;
     position: absolute;
     padding: 12px;
-    max-width: 250px;
+    width: 250px;
     border: 1px solid #333;
     position: relative;
     background: #fff;
@@ -82,14 +85,19 @@
       border-top-color: #333;
       border-width: 13px;
       margin-left: -13px; }
+    .usr-profile #contactslist ul li address.address--button-group {
+      top: -174px; }
   .usr-profile #contactslist ul li:hover address {
-    display: block; }
+    display: inline-block;
+    left: -48%; }
 
 .usr-profile #contactslist ul .btn-group {
   float: right;
   margin-top: 9px; }
   .usr-profile #contactslist ul .btn-group .btn {
     font-family: 'FontAwesome'; }
+    .usr-profile #contactslist ul .btn-group .btn[disabled] {
+      cursor: not-allowed; }
 
 .loggedout {
   background: #fff url("../img/login-bg.jpg") no-repeat 0 0;

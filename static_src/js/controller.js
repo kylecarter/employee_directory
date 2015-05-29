@@ -33,7 +33,13 @@ EmployeeDirectory = (function() {
 
 EmployeeDirectory.utils = (function() {
   'use strict';
-  var getAppState, getLoginStatus, handleHashValues, hideLoading, showLoading;
+  var config, getAppState, getLoginStatus, handleHashValues, hideLoading, setData, showLoading;
+  config = {
+    params: null
+  };
+  setData = function(shared) {
+    config.params = shared;
+  };
   getLoginStatus = function() {
     var status;
     if (($.cookie('loggedin') != null) && $.cookie('loggedin') !== 'no') {
@@ -69,7 +75,7 @@ EmployeeDirectory.utils = (function() {
         if (content.hasClass('usr-profile')) {
           return false;
         } else {
-          EmployeeDirectory.employee.configModule(state.anchor._page.id);
+          EmployeeDirectory.employee.configModule(config.params);
         }
       },
       p404: function() {
@@ -105,6 +111,7 @@ EmployeeDirectory.utils = (function() {
     }
   };
   return {
+    setData: setData,
     getLoginStatus: getLoginStatus,
     getAppState: getAppState,
     showLoading: showLoading,
@@ -152,25 +159,38 @@ EmployeeDirectory.create = (function() {
 
 EmployeeDirectory["delete"] = (function() {
   'use strict';
-  var config, configModule, initModule, selectors, state;
-  config = new Object();
-  state = new Object();
-  selectors = new Object();
-  configModule = function() {};
-  initModule = function() {};
+  var doDeleteEmployee;
+  doDeleteEmployee = function(user, el) {
+    $.ajax({
+      url: '/user/delete/' + user,
+      dataType: 'json',
+      type: 'GET',
+      success: function(data) {
+        el.remove();
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        console.log(jqXHR, textStatus, errorThrown);
+        window.alert('We are having difficulty processing your request please try again later.');
+      }
+    });
+    return;
+  };
   return {
-    configModule: configModule,
-    initModule: initModule
+    doDeleteEmployee: doDeleteEmployee
   };
 })();
 
 EmployeeDirectory.read = (function() {
   'use strict';
-  var config, doListEmployees, doLogIn, doLogOut, validateUser, verifyUser;
+  var config, doListEmployees, doLogIn, doLogOut, getData, validateUser, verifyUser;
   config = {
+    params: null,
     templates: {
       employeeslist: EmployeeDirectoryViews['hbs/EmployeeList.hbs']
     }
+  };
+  getData = function(data) {
+    config.params = data;
   };
   verifyUser = function(usr, pswrd) {
     var i, isUser;
@@ -188,7 +208,7 @@ EmployeeDirectory.read = (function() {
     return isUser;
   };
   validateUser = function(userID) {
-    return $.ajax({
+    $.ajax({
       url: '/user/read/' + userID,
       dataType: 'json',
       type: 'GET',
@@ -200,12 +220,11 @@ EmployeeDirectory.read = (function() {
               id: data[0].employee_id
             }
           });
-          EmployeeDirectory.employee.configModule(data[0]);
+          getData(data[0]);
         } else {
           $.uriAnchor.setAnchor({
             page: 'p404'
           });
-          EmployeeDirectory.notfound.configModule({});
         }
       },
       error: function(jqXHR, textStatus, errorThrown) {
@@ -213,9 +232,9 @@ EmployeeDirectory.read = (function() {
         $.uriAnchor.setAnchor({
           page: 'p404'
         });
-        EmployeeDirectory.notfound.configModule({});
       }
     });
+    return config.params;
   };
   doLogIn = function(usr, pswrd) {
     $.ajax({
@@ -232,7 +251,7 @@ EmployeeDirectory.read = (function() {
           });
           $.cookie('loggedin', 'yes');
           $.cookie('user', data[0].employee_id);
-          EmployeeDirectory.employee.configModule(data[0]);
+          EmployeeDirectory.utils.setData(data[0]);
         } else {
           EmployeeDirectory.notfound.configModule({});
         }
@@ -251,7 +270,6 @@ EmployeeDirectory.read = (function() {
     });
     $.removeCookie('loggedin');
     $.removeCookie('user');
-    EmployeeDirectory.login.configModule();
   };
   doListEmployees = function(list, isadmin) {
     $.ajax({
@@ -267,6 +285,7 @@ EmployeeDirectory.read = (function() {
         list.html(function(old, i) {
           return config.templates.employeeslist(variable);
         });
+        EmployeeDirectory.employee.initModule();
       },
       error: function(jqXHR, textStatus, errorThrown) {
         console.log(jqXHR, textStatus, errorThrown);
@@ -287,7 +306,7 @@ EmployeeDirectory.read = (function() {
 
 EmployeeDirectory.update = (function() {
   'use strict';
-  var doChangeAvatar, doChangePassword;
+  var doChangeAvatar, doChangePassword, doMakeAdmin;
   doChangePassword = function(confirm, dbid, form) {
     $.ajax({
       url: '/user/updatepw/' + dbid + '?pswrd=' + confirm,
@@ -337,29 +356,30 @@ EmployeeDirectory.update = (function() {
       }
     });
   };
+  doMakeAdmin = function(user, trigger) {
+    $.ajax({
+      url: '/user/role/' + user,
+      dataType: 'json',
+      type: 'POST',
+      success: function(data) {
+        trigger.attr('disabled', 'disabled');
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        console.log(jqXHR, textStatus, errorThrown);
+        window.alert('We are having difficulty processing your request please try again later.');
+      }
+    });
+  };
   return {
     doChangePassword: doChangePassword,
-    doChangeAvatar: doChangeAvatar
-  };
-})();
-
-EmployeeDirectory.contact = (function() {
-  'use strict';
-  var config, configModule, initModule, selectors, state;
-  config = new Object();
-  state = new Object();
-  selectors = new Object();
-  configModule = function() {};
-  initModule = function() {};
-  return {
-    configModule: configModule,
-    initModule: initModule
+    doChangeAvatar: doChangeAvatar,
+    doMakeAdmin: doMakeAdmin
   };
 })();
 
 EmployeeDirectory.employee = (function() {
   'use strict';
-  var buildProfile, config, configModule, handleAddEmployee, handleAvatarChange, handleLogOut, handlePasswordChange, initModule, state;
+  var config, configModule, handleAddEmployee, handleAvatarChange, handleDeleteEmployee, handleLogOut, handleMakeAdmin, handlePasswordChange, initModule, state;
   config = {
     params: null,
     templates: {
@@ -376,23 +396,20 @@ EmployeeDirectory.employee = (function() {
     anchor: EmployeeDirectory.utils.getAppState()
   };
   configModule = function(data) {
-    config.params = data.hasOwnProperty('employee_id') ? data : EmployeeDirectory.read.validateUser(data);
+    console.log(data);
+    config.params = data === void 0 || data === null ? EmployeeDirectory.read.validateUser(data) : data;
     if (!config.params) {
       $.uriAnchor.setAnchor({
         page: 'p404'
       });
       $.removeCookie('loggedin');
       $.removeCookie('user');
-      EmployeeDirectory.notfound.configModule();
     } else {
       EmployeeDirectory.container.html(function(old, i) {
         return config.templates.shell(config.params);
       });
+      EmployeeDirectory.read.doListEmployees($('#wrapper'), $('#content').attr('data-admin'));
     }
-    initModule();
-  };
-  buildProfile = function(list) {
-    EmployeeDirectory.read.doListEmployees(list, $('#content').attr('data-admin'));
   };
   handlePasswordChange = function(trigger) {
     trigger.on('click touchend', function() {
@@ -480,6 +497,26 @@ EmployeeDirectory.employee = (function() {
       EmployeeDirectory.read.doLogOut();
     });
   };
+  handleMakeAdmin = function(trigger) {
+    trigger.each(function() {
+      var $this;
+      $this = $(this);
+      $this.on('click touchend', function() {
+        EmployeeDirectory.update.doMakeAdmin($this.parents('li').attr('data-db'), $this);
+      });
+    });
+  };
+  handleDeleteEmployee = function(trigger) {
+    trigger.each(function() {
+      var $this;
+      $this = $(this);
+      $this.on('click touchend', function() {
+        if (window.confirm('Are you sure you want to delete this employee? This action cannot be undone.')) {
+          EmployeeDirectory["delete"].doDeleteEmployee($this.parents('li').attr('data-db'), $this.parents('li'));
+        }
+      });
+    });
+  };
   handleAddEmployee = function(trigger) {
     trigger.on('click touchend', function() {
       var form;
@@ -537,14 +574,16 @@ EmployeeDirectory.employee = (function() {
     });
   };
   initModule = function() {
-    buildProfile($('#wrapper'));
+    handleLogOut($('#loggout'));
     handlePasswordChange($('#change-pswrd.js-modal-trigger'));
     handleAvatarChange($('#update-profile.js-modal-trigger'));
-    handleLogOut($('#loggout'));
     handleAddEmployee($('#employee-add .js-modal-trigger'));
+    handleMakeAdmin($('.js-trigger-admin'));
+    handleDeleteEmployee($('.js-trigger-delete'));
   };
   return {
-    configModule: configModule
+    configModule: configModule,
+    initModule: initModule
   };
 })();
 
@@ -605,7 +644,6 @@ EmployeeDirectory.login = (function() {
       $.uriAnchor.setAnchor({
         page: 'reset'
       });
-      EmployeeDirectory.reset.configModule();
     });
   };
   return {
@@ -640,7 +678,6 @@ EmployeeDirectory.notfound = (function() {
       $.uriAnchor.setAnchor({
         page: 'signin'
       });
-      EmployeeDirectory.login.configModule();
     });
   };
   return {
@@ -709,7 +746,6 @@ EmployeeDirectory.reset = (function() {
       $.uriAnchor.setAnchor({
         page: 'signin'
       });
-      EmployeeDirectory.login.configModule();
     });
   };
   return {

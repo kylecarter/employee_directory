@@ -31,17 +31,19 @@ this["EmployeeDirectoryViews"]["hbs/EmployeeList.hbs"] = Handlebars.template({"1
     + alias3(((helper = (helper = helpers.last_name || (depth0 != null ? depth0.last_name : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"last_name","hash":{},"data":data}) : helper)))
     + "</strong>, "
     + alias3(((helper = (helper = helpers.title || (depth0 != null ? depth0.title : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"title","hash":{},"data":data}) : helper)))
-    + "\n			</a>\n			<div class=\"col-sm-12 col-md-6 col-lg-6\">\n				<div class=\"btn-group\">\n					<button type=\"button\" class=\"btn btn-default\" title=\"Make Admin\">&#xf0e3;</button>\n					<button type=\"button\" class=\"btn btn-default\" title=\"Delete\">&#xf014;</button>\n				</div>\n			</div>\n			<address>\n				"
-    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.street_address : depth0),{"name":"if","hash":{},"fn":this.program(7, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + "\n			</a>\n			<div class=\"col-sm-12 col-md-6 col-lg-6\">\n				<div class=\"btn-group\">\n					<button type=\"button\" class=\"btn btn-default js-trigger-admin\""
+    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.admin : depth0),{"name":"if","hash":{},"fn":this.program(7, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + " title=\"Make Admin\">&#xf0e3;</button>\n					<button type=\"button\" class=\"btn btn-default js-trigger-delete\" title=\"Delete\">&#xf014;</button>\n				</div>\n			</div>\n			<address class=\"address--button-group\">\n				"
+    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.street_address : depth0),{"name":"if","hash":{},"fn":this.program(9, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "\n				"
-    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.street_address_addtnal : depth0),{"name":"if","hash":{},"fn":this.program(9, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.street_address_addtnal : depth0),{"name":"if","hash":{},"fn":this.program(11, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "\n				"
-    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.city : depth0),{"name":"if","hash":{},"fn":this.program(11, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
-    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.state : depth0),{"name":"if","hash":{},"fn":this.program(13, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
-    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.zip : depth0),{"name":"if","hash":{},"fn":this.program(15, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.city : depth0),{"name":"if","hash":{},"fn":this.program(13, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.state : depth0),{"name":"if","hash":{},"fn":this.program(15, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.zip : depth0),{"name":"if","hash":{},"fn":this.program(17, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "\n				"
     + alias3(((helper = (helper = helpers.email || (depth0 != null ? depth0.email : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"email","hash":{},"data":data}) : helper)))
-    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.phone : depth0),{"name":"if","hash":{},"fn":this.program(17, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.phone : depth0),{"name":"if","hash":{},"fn":this.program(19, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "\n			</address>\n		</li>\n";
 },"3":function(depth0,helpers,partials,data) {
     var helper, alias1=helpers.helperMissing, alias2="function", alias3=this.escapeExpression;
@@ -56,40 +58,42 @@ this["EmployeeDirectoryViews"]["hbs/EmployeeList.hbs"] = Handlebars.template({"1
 },"5":function(depth0,helpers,partials,data) {
     return "					<span>&#xf007;</span>\n";
 },"7":function(depth0,helpers,partials,data) {
+    return " disabled=\"disabled\"";
+},"9":function(depth0,helpers,partials,data) {
     var helper;
 
   return this.escapeExpression(((helper = (helper = helpers.street_address || (depth0 != null ? depth0.street_address : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0,{"name":"street_address","hash":{},"data":data}) : helper)))
     + " <br>";
-},"9":function(depth0,helpers,partials,data) {
+},"11":function(depth0,helpers,partials,data) {
     var helper;
 
   return this.escapeExpression(((helper = (helper = helpers.street_address_addtnal || (depth0 != null ? depth0.street_address_addtnal : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0,{"name":"street_address_addtnal","hash":{},"data":data}) : helper)))
     + " <br>";
-},"11":function(depth0,helpers,partials,data) {
+},"13":function(depth0,helpers,partials,data) {
     var helper;
 
   return this.escapeExpression(((helper = (helper = helpers.city || (depth0 != null ? depth0.city : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0,{"name":"city","hash":{},"data":data}) : helper)))
     + ", ";
-},"13":function(depth0,helpers,partials,data) {
+},"15":function(depth0,helpers,partials,data) {
     var helper;
 
   return this.escapeExpression(((helper = (helper = helpers.state || (depth0 != null ? depth0.state : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0,{"name":"state","hash":{},"data":data}) : helper)))
     + " ";
-},"15":function(depth0,helpers,partials,data) {
+},"17":function(depth0,helpers,partials,data) {
     var helper;
 
   return this.escapeExpression(((helper = (helper = helpers.zip || (depth0 != null ? depth0.zip : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0,{"name":"zip","hash":{},"data":data}) : helper)))
     + " <br>";
-},"17":function(depth0,helpers,partials,data) {
+},"19":function(depth0,helpers,partials,data) {
     var helper;
 
   return " <br>\n				"
     + this.escapeExpression(((helper = (helper = helpers.phone || (depth0 != null ? depth0.phone : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0,{"name":"phone","hash":{},"data":data}) : helper)));
-},"19":function(depth0,helpers,partials,data) {
+},"21":function(depth0,helpers,partials,data) {
     var stack1;
 
-  return ((stack1 = helpers.each.call(depth0,(depth0 != null ? depth0.employee : depth0),{"name":"each","hash":{},"fn":this.program(20, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "");
-},"20":function(depth0,helpers,partials,data) {
+  return ((stack1 = helpers.each.call(depth0,(depth0 != null ? depth0.employee : depth0),{"name":"each","hash":{},"fn":this.program(22, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "");
+},"22":function(depth0,helpers,partials,data) {
     var stack1, helper, alias1=helpers.helperMissing, alias2="function", alias3=this.escapeExpression;
 
   return "		<li class=\"row\" data-id=\""
@@ -105,16 +109,16 @@ this["EmployeeDirectoryViews"]["hbs/EmployeeList.hbs"] = Handlebars.template({"1
     + "</strong>, "
     + alias3(((helper = (helper = helpers.title || (depth0 != null ? depth0.title : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"title","hash":{},"data":data}) : helper)))
     + "\n			</a>\n			<address>\n				"
-    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.street_address : depth0),{"name":"if","hash":{},"fn":this.program(7, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.street_address : depth0),{"name":"if","hash":{},"fn":this.program(9, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "\n				"
-    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.street_address_addtnal : depth0),{"name":"if","hash":{},"fn":this.program(9, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.street_address_addtnal : depth0),{"name":"if","hash":{},"fn":this.program(11, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "\n				"
-    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.city : depth0),{"name":"if","hash":{},"fn":this.program(11, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
-    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.state : depth0),{"name":"if","hash":{},"fn":this.program(13, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
-    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.zip : depth0),{"name":"if","hash":{},"fn":this.program(15, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.city : depth0),{"name":"if","hash":{},"fn":this.program(13, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.state : depth0),{"name":"if","hash":{},"fn":this.program(15, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.zip : depth0),{"name":"if","hash":{},"fn":this.program(17, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "\n				"
     + alias3(((helper = (helper = helpers.email || (depth0 != null ? depth0.email : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"email","hash":{},"data":data}) : helper)))
-    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.phone : depth0),{"name":"if","hash":{},"fn":this.program(17, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.phone : depth0),{"name":"if","hash":{},"fn":this.program(19, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "\n			</address>\n		</li>\n";
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
     var stack1, helper;
@@ -122,7 +126,7 @@ this["EmployeeDirectoryViews"]["hbs/EmployeeList.hbs"] = Handlebars.template({"1
   return "<section id=\"contactslist\" data-size=\""
     + this.escapeExpression(((helper = (helper = helpers.size || (depth0 != null ? depth0.size : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0,{"name":"size","hash":{},"data":data}) : helper)))
     + "\">\n	<h2>Employee Directory</h2>\n	<ul id=\"employee-list\">\n"
-    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.curadmin : depth0),{"name":"if","hash":{},"fn":this.program(1, data, 0),"inverse":this.program(19, data, 0),"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.curadmin : depth0),{"name":"if","hash":{},"fn":this.program(1, data, 0),"inverse":this.program(21, data, 0),"data":data})) != null ? stack1 : "")
     + "	</ul>\n</section>\n";
 },"useData":true});
 

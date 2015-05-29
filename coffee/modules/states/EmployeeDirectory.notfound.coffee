@@ -23,7 +23,6 @@ EmployeeDirectory.notfound = do ->
     trigger.on 'click touchend', ->
       $.uriAnchor.setAnchor
         page: 'signin'
-      EmployeeDirectory.login.configModule()
       return
     return
 

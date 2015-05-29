@@ -1,17 +1,21 @@
 EmployeeDirectory.delete = do ->
   'use strict'
 
-  config = new Object()
-  state = new Object()
-  selectors = new Object()
-
-  configModule = ()->
+  doDeleteEmployee = (user,el)->
+    $.ajax
+      url: '/user/delete/'+ user
+      dataType: 'json'
+      type: 'GET'
+      success: (data)->
+        el.remove()
+        return
+      error: (jqXHR,textStatus,errorThrown)->
+        console.log jqXHR,textStatus,errorThrown
+        window.alert('We are having difficulty processing your request please try again later.');
+        return
     return
-
-  initModule = ()->
     return
 
   {
-    configModule: configModule
-    initModule: initModule
+    doDeleteEmployee: doDeleteEmployee
   }

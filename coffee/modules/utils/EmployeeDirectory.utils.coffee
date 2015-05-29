@@ -1,6 +1,13 @@
 EmployeeDirectory.utils = do ->
      'use strict'
 
+     config =
+          params: null
+
+     setData = (shared)->
+          config.params = shared
+          return
+
      getLoginStatus = ()->
           if $.cookie('loggedin')? and $.cookie('loggedin') != 'no'
                status = true
@@ -31,7 +38,7 @@ EmployeeDirectory.utils = do ->
                     if content.hasClass 'usr-profile'
                          false
                     else
-                         EmployeeDirectory.employee.configModule(state.anchor._page.id)
+                         EmployeeDirectory.employee.configModule(config.params)
                          return
                p404: ->
                     if content.hasClass 'notfound'
@@ -62,6 +69,7 @@ EmployeeDirectory.utils = do ->
           return
 
      {
+          setData : setData
           getLoginStatus : getLoginStatus
           getAppState : getAppState
           showLoading : showLoading
