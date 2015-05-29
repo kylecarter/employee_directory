@@ -21,8 +21,8 @@ EmployeeDirectory.employee = do ->
     if !config.params
       $.uriAnchor.setAnchor
         page: 'p404'
-      $.removeCookie('loggedin')
-      $.removeCookie('user')
+      $.cookie('loggedin','no')
+      $.cookie('user','')
     else
       EmployeeDirectory.container.html (old,i)->
         return config.templates.shell(config.params)

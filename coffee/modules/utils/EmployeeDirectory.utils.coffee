@@ -9,7 +9,7 @@ EmployeeDirectory.utils = do ->
           return
 
      getLoginStatus = ()->
-          if $.cookie('loggedin')? and $.cookie('loggedin') != 'no'
+          if $.cookie('loggedin')?
                status = true
           else
                status = false
@@ -27,6 +27,7 @@ EmployeeDirectory.utils = do ->
 
      handleHashValues = (state)->
           content = $('#content')
+          console.log state, $.cookie()
           hashHandlers =
                reset: ->
                     if content.hasClass 'reset-pswrd'
@@ -52,19 +53,19 @@ EmployeeDirectory.utils = do ->
                     else
                          EmployeeDirectory.login.configModule()
                          return
-          if state.status && state.anchor.page == 'employee'
+          if state.status and state.anchor.page == 'employee'
                hashHandlers.employee()
           if state.anchor.page == 'reset'
-               $.cookie('loggined', 'no')
-               $.removeCookie('user')
+               $.cookie('loggedin','no')
+               $.cookie('user','')
                hashHandlers.reset()
           else if state.anchor.page == 'p404'
-               $.cookie('loggined', 'no')
-               $.removeCookie('user')
+               $.cookie('loggedin','no')
+               $.cookie('user','')
                hashHandlers.p404()
           else
-               $.cookie('loggined', 'no')
-               $.removeCookie('user')
+               $.cookie('loggedin','no')
+               $.cookie('user','')
                hashHandlers.signin()
           return
 

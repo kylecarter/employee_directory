@@ -32,6 +32,8 @@ EmployeeDirectory.read = do ->
             page: 'employee'
             _page:
               id: data[0].employee_id
+          $.cookie('loggedin', 'yes', {expires: 30})
+          $.cookie('user', data[0].employee_id, {expires: 30})
           getData(data[0])
         else
           $.uriAnchor.setAnchor
@@ -45,6 +47,8 @@ EmployeeDirectory.read = do ->
     config.params
 
   doLogIn = (usr,pswrd)->
+    $.uriAnchor.setAnchor
+      login: 'verifying'
     $.ajax
       url: '/user/login?usr=' + usr.val() + '&pswrd=' + pswrd.val()
       dataType: 'json'
@@ -55,7 +59,7 @@ EmployeeDirectory.read = do ->
             page: 'employee'
             _page:
               id: data[0].employee_id
-          $.cookie('loggedin', 'yes')
+          $.cookie('loggedin', 'yes', {expires: 30})
           $.cookie('user', data[0].employee_id)
           EmployeeDirectory.utils.setData(data[0])
         else
@@ -63,8 +67,8 @@ EmployeeDirectory.read = do ->
         return
       error: (jqXHR,textStatus,errorThrown)->
         console.log jqXHR,textStatus,errorThrown
-        $.removeCookie('loggedin')
-        $.removeCookie('user')
+        $.cookie('loggedin', 'no')
+        $.cookie('user','')
         form.after('<div class="container-fluid"><div class="col-sm-12"><p style="margin-top: 18px; font-size: 0.775em;">The information provided does not match a known employee. Please check the information you entered and try again. If you contine to have problems contact IT.</p></div></div>')
         return
     return
@@ -72,8 +76,6 @@ EmployeeDirectory.read = do ->
   doLogOut = ()->
     $.uriAnchor.setAnchor
       page: 'signin'
-    $.removeCookie('loggedin')
-    $.removeCookie('user')
     return
 
   doListEmployees = (list,isadmin)->

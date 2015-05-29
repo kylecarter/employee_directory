@@ -1,29 +1,21 @@
 var EmployeeDirectory;
 
 EmployeeDirectory = (function() {
-  var initApp, state, watchHashChange, watchPageLoad;
+  var initApp, state;
   state = new Object();
-  watchPageLoad = function(state) {
-    $(document).ready(function() {
-      EmployeeDirectory.utils.handleHashValues(state);
-    });
-  };
-  watchHashChange = function() {
-    state = {
-      status: EmployeeDirectory.utils.getLoginStatus(),
-      anchor: EmployeeDirectory.utils.getAppState()
-    };
-    EmployeeDirectory.utils.handleHashValues(state);
-  };
   initApp = function() {
     state = {
       status: EmployeeDirectory.utils.getLoginStatus(),
       anchor: EmployeeDirectory.utils.getAppState()
     };
     this.container = $('#application-data');
-    watchPageLoad(state);
+    EmployeeDirectory.utils.handleHashValues(state);
     $(window).on('hashchange', function() {
-      watchHashChange();
+      state = {
+        status: EmployeeDirectory.utils.getLoginStatus(),
+        anchor: EmployeeDirectory.utils.getAppState()
+      };
+      EmployeeDirectory.utils.handleHashValues(state);
     });
   };
   return {
@@ -42,7 +34,7 @@ EmployeeDirectory.utils = (function() {
   };
   getLoginStatus = function() {
     var status;
-    if (($.cookie('loggedin') != null) && $.cookie('loggedin') !== 'no') {
+    if ($.cookie('loggedin') != null) {
       status = true;
     } else {
       status = false;
@@ -63,6 +55,7 @@ EmployeeDirectory.utils = (function() {
   handleHashValues = function(state) {
     var content, hashHandlers;
     content = $('#content');
+    console.log(state, $.cookie());
     hashHandlers = {
       reset: function() {
         if (content.hasClass('reset-pswrd')) {
@@ -97,16 +90,16 @@ EmployeeDirectory.utils = (function() {
       hashHandlers.employee();
     }
     if (state.anchor.page === 'reset') {
-      $.cookie('loggined', 'no');
-      $.removeCookie('user');
+      $.cookie('loggedin', 'no');
+      $.cookie('user', '');
       hashHandlers.reset();
     } else if (state.anchor.page === 'p404') {
-      $.cookie('loggined', 'no');
-      $.removeCookie('user');
+      $.cookie('loggedin', 'no');
+      $.cookie('user', '');
       hashHandlers.p404();
     } else {
-      $.cookie('loggined', 'no');
-      $.removeCookie('user');
+      $.cookie('loggedin', 'no');
+      $.cookie('user', '');
       hashHandlers.signin();
     }
   };
@@ -220,6 +213,12 @@ EmployeeDirectory.read = (function() {
               id: data[0].employee_id
             }
           });
+          $.cookie('loggedin', 'yes', {
+            expires: 30
+          });
+          $.cookie('user', data[0].employee_id, {
+            expires: 30
+          });
           getData(data[0]);
         } else {
           $.uriAnchor.setAnchor({
@@ -237,6 +236,9 @@ EmployeeDirectory.read = (function() {
     return config.params;
   };
   doLogIn = function(usr, pswrd) {
+    $.uriAnchor.setAnchor({
+      login: 'verifying'
+    });
     $.ajax({
       url: '/user/login?usr=' + usr.val() + '&pswrd=' + pswrd.val(),
       dataType: 'json',
@@ -249,7 +251,9 @@ EmployeeDirectory.read = (function() {
               id: data[0].employee_id
             }
           });
-          $.cookie('loggedin', 'yes');
+          $.cookie('loggedin', 'yes', {
+            expires: 30
+          });
           $.cookie('user', data[0].employee_id);
           EmployeeDirectory.utils.setData(data[0]);
         } else {
@@ -258,8 +262,8 @@ EmployeeDirectory.read = (function() {
       },
       error: function(jqXHR, textStatus, errorThrown) {
         console.log(jqXHR, textStatus, errorThrown);
-        $.removeCookie('loggedin');
-        $.removeCookie('user');
+        $.cookie('loggedin', 'no');
+        $.cookie('user', '');
         form.after('<div class="container-fluid"><div class="col-sm-12"><p style="margin-top: 18px; font-size: 0.775em;">The information provided does not match a known employee. Please check the information you entered and try again. If you contine to have problems contact IT.</p></div></div>');
       }
     });
@@ -268,8 +272,6 @@ EmployeeDirectory.read = (function() {
     $.uriAnchor.setAnchor({
       page: 'signin'
     });
-    $.removeCookie('loggedin');
-    $.removeCookie('user');
   };
   doListEmployees = function(list, isadmin) {
     $.ajax({
@@ -402,8 +404,8 @@ EmployeeDirectory.employee = (function() {
       $.uriAnchor.setAnchor({
         page: 'p404'
       });
-      $.removeCookie('loggedin');
-      $.removeCookie('user');
+      $.cookie('loggedin', 'no');
+      $.cookie('user', '');
     } else {
       EmployeeDirectory.container.html(function(old, i) {
         return config.templates.shell(config.params);
@@ -750,19 +752,5 @@ EmployeeDirectory.reset = (function() {
   };
   return {
     configModule: configModule
-  };
-})();
-
-EmployeeDirectory.shell = (function() {
-  var initModule, state;
-  state = {
-    status: EmployeeDirectory.utils.getLoginStatus(),
-    anchor: EmployeeDirectory.utils.getAppState()
-  };
-  initModule = function() {
-    EmployeeDirectory.utils.handleHashValues();
-  };
-  return {
-    initModule: initModule
   };
 })();
