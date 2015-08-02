@@ -1,5 +1,6 @@
 'use strict';
 
+console.log('Launch Application');
 var
 	http = require('http'),
 	express = require('express'),
@@ -8,19 +9,29 @@ var
 	makeMongoId = crud.makeMongoId,
 	app = express(),
 	bodyParser = require('body-parser'),
-	server = http.createServer(app);
+	server = http.createServer(app),
+	spawn = require('child_process').spawn,
+	grunt = spawn('grunt', ['sass','coffee','handlebars','cssmin','uglify']);
 
+//dependencies, dependencies, and more dependencies
+console.log('Grunt tasks fired.')
+grunt.stdout.on('data', function (data) {
+console.log('' + data);
+});
 
+console.log('Configuring Application.');
 app.configure( function () {
 	app.use( express.logger() );
 	app.use( express.bodyParser() );
-	app.use(bodyParser.urlencoded({ extended: true})); 
+	app.use(bodyParser.urlencoded({ extended: true}));
 	app.use( express.methodOverride() );
 	app.use( express.static( __dirname + '/public' ) );
 	app.use( app.router );
+	console.log('Configuring Application Complete.');
 });
 
 //Routes
+console.log('Defining Application Routes.');
 app.get('/', function(request,response) {
 	response.redirect('/index.html');
 });
@@ -130,3 +141,4 @@ app.get('/:obj_type/delete/:id', function(request,response) {
 
 
 server.listen(3000);
+console.log('Application Ready.')

@@ -31,7 +31,7 @@ this["EmployeeDirectoryViews"]["hbs/EmployeeList.hbs"] = Handlebars.template({"1
     + alias3(((helper = (helper = helpers.last_name || (depth0 != null ? depth0.last_name : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"last_name","hash":{},"data":data}) : helper)))
     + "</strong>, "
     + alias3(((helper = (helper = helpers.title || (depth0 != null ? depth0.title : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"title","hash":{},"data":data}) : helper)))
-    + "\n			</a>\n			<div class=\"col-sm-12 col-md-6 col-lg-6\">\n				<div class=\"btn-group\">\n					<button type=\"button\" class=\"btn btn-default js-trigger-admin\""
+    + "\n			</a>\n			<div class=\"col-sm-12 col-md-6 col-lg-6\">\n				<div class=\"btn-group\">\n					<button type=\"button\" class=\"btn btn-default\" title=\"Edit\">&#xf044;</button>\n					<button type=\"button\" class=\"btn btn-default js-trigger-admin\""
     + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.admin : depth0),{"name":"if","hash":{},"fn":this.program(7, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + " title=\"Make Admin\">&#xf0e3;</button>\n					<button type=\"button\" class=\"btn btn-default js-trigger-delete\" title=\"Delete\">&#xf014;</button>\n				</div>\n			</div>\n			<address class=\"address--button-group\">\n				"
     + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.street_address : depth0),{"name":"if","hash":{},"fn":this.program(9, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
@@ -269,5 +269,5 @@ this["EmployeeDirectoryViews"]["hbs/UserProfile.hbs"] = Handlebars.template({"1"
     + alias3(((helper = (helper = helpers.admin || (depth0 != null ? depth0.admin : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"admin","hash":{},"data":data}) : helper)))
     + "\">\n	<div class=\"container\">\n"
     + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.admin : depth0),{"name":"if","hash":{},"fn":this.program(5, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
-    + "		<div class=\"row\" id=\"wrapper\">\n			<div class=\"col-sm-12\">\n				\n			</div>\n		</div>\n	</div>\n</section>\n";
+    + "		<div class=\"row\" id=\"wrapper\">\n			<div class=\"col-sm-12\">\n\n			</div>\n		</div>\n	</div>\n</section>\n";
 },"useData":true});

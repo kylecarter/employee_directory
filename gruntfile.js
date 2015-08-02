@@ -1,15 +1,15 @@
 module.exports = function(grunt) {
 	grunt.initConfig({
-	    sass: {
-	      dist: {
+    sass: {
+      dist: {
 			options: {
 				style: 'expanded'
 			},
-	        files: {
-	          'static_src/css/style.css' : 'sass/style.scss'
-	        }
-	      }
-	    },
+        files: {
+          'static_src/css/style.css' : 'sass/style.scss'
+        }
+      }
+    },
 		coffee: {
 		  compile: {
 		  	options: {
@@ -131,11 +131,12 @@ module.exports = function(grunt) {
 		}
 	});
 
+	grunt.loadNpmTasks('grunt-run');
 	grunt.loadNpmTasks('grunt-sass');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-coffee');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-contrib-handlebars');
-	grunt.registerTask('default', ['sass','coffee','handlebars','cssmin','uglify','watch']);
+	grunt.registerTask('default', ['sass','coffee','handlebars','cssmin','run','uglify','watch']);
 }
