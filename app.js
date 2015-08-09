@@ -11,7 +11,7 @@ var
 	bodyParser = require('body-parser'),
 	server = http.createServer(app),
 	spawn = require('child_process').spawn,
-	grunt = spawn('grunt', ['sass','coffee','handlebars','cssmin','uglify']);
+	grunt = spawn('grunt', ['sass','coffee','handlebars','purifycss','cssmin','uglify']);
 
 //dependencies, dependencies, and more dependencies
 console.log('Grunt tasks fired.')

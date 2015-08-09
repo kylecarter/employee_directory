@@ -1,39 +1,46 @@
 module.exports = function(grunt) {
 	grunt.initConfig({
-    sass: {
-      dist: {
-			options: {
-				style: 'expanded'
-			},
-        files: {
-          'static_src/css/style.css' : 'sass/style.scss'
-        }
-      }
-    },
+		sass: {
+			dist: {
+				options: {
+					style: 'expanded'
+				},
+				files: {
+					'static_src/css/style.css' : 'sass/style.scss'
+				}
+			}
+		},
+		purifycss: {
+			target: {
+				src: ['public/**/*.html', 'hbs/**/*.hbs'],
+				css: ['static_src/css/vendor/**/*.css','static_src/css/style.css'],
+				dest: 'static_src/css/style.pure.css'
+			}
+		},
 		coffee: {
-		  compile: {
-		  	options: {
-		  		bare: true
-		  	},
-		    files: {
-		      'static_src/js/controller.js' : [
-		      	'coffee/EmployeeDirectory.coffee',
-		      	'coffee/modules/utils/EmployeeDirectory.utils.coffee',
-		      	'coffee/modules/utils/EmployeeDirectory.create.coffee',
-		      	'coffee/modules/utils/EmployeeDirectory.delete.coffee',
-		      	'coffee/modules/utils/EmployeeDirectory.premissions.coffee',
-		      	'coffee/modules/utils/EmployeeDirectory.read.coffee',
-		      	'coffee/modules/utils/EmployeeDirectory.update.coffee',
-		      	'coffee/modules/states/EmployeeDirectory.contact.coffee',
-		      	'coffee/modules/states/EmployeeDirectory.employee.coffee',
-		      	'coffee/modules/states/EmployeeDirectory.login.coffee',
-		      	'coffee/modules/states/EmployeeDirectory.notfound.coffee',
-		      	'coffee/modules/states/EmployeeDirectory.reset.coffee',
-		      	'coffee/modules/states/EmployeeDirectory.search.coffee',
-		      	'coffee/EmployeeDirectory.shell.coffee',
-		      ]
-		    }
-		  }
+			compile: {
+				options: {
+					bare: true
+				},
+				files: {
+					'static_src/js/controller.js' : [
+						'coffee/EmployeeDirectory.coffee',
+						'coffee/modules/utils/EmployeeDirectory.utils.coffee',
+						'coffee/modules/utils/EmployeeDirectory.create.coffee',
+						'coffee/modules/utils/EmployeeDirectory.delete.coffee',
+						'coffee/modules/utils/EmployeeDirectory.premissions.coffee',
+						'coffee/modules/utils/EmployeeDirectory.read.coffee',
+						'coffee/modules/utils/EmployeeDirectory.update.coffee',
+						'coffee/modules/states/EmployeeDirectory.contact.coffee',
+						'coffee/modules/states/EmployeeDirectory.employee.coffee',
+						'coffee/modules/states/EmployeeDirectory.login.coffee',
+						'coffee/modules/states/EmployeeDirectory.notfound.coffee',
+						'coffee/modules/states/EmployeeDirectory.reset.coffee',
+						'coffee/modules/states/EmployeeDirectory.search.coffee',
+						'coffee/EmployeeDirectory.shell.coffee',
+					]
+				}
+			}
 		},
 		handlebars: {
 			compile: {
@@ -52,8 +59,7 @@ module.exports = function(grunt) {
 			},
 			target: {
 				files: {
-					'public/css/vendor.min.css' : ['static_src/css/vendor/bootstrap.css', 'static_src/css/vendor/bootstrap-theme.css'],
-					'public/css/style.min.css' : ['static_src/css/style.css']
+					'public/css/style.min.css' : ['static_src/css/style.pure.css']
 				}
 			}
 		},
@@ -80,50 +86,21 @@ module.exports = function(grunt) {
 		watch: {
 			sass: {
 				files: ['sass/**/*.scss'],
-				tasks: ['sass'],
+				tasks: ['sass','purifycss','cssmin'],
 				options: {
 					livereload: true
 				}
 			},
 			coffee: {
 				files: ['coffee/**/*.coffee'],
-				tasks: ['coffee'],
+				tasks: ['coffee','uglify'],
 				options: {
 					livereload: true
 				}
 			},
 			handlebars: {
 				files: ['hbs/**/*.hbs'],
-				tasks: ['handlebars'],
-				options: {
-					livereload: true
-				}
-			},
-			cssmin: {
-				files: [
-					'static_src/css/style.css',
-					'static_src/css/vendor/bootstrap.css',
-					'static_src/css/vendor/bootstrap-theme.css'
-				],
-				tasks: ['cssmin'],
-				options: {
-					livereload: true
-				}
-			},
-			uglify: {
-				files: [
-					'static_src/js/view.js',
-					'static_src/js/controller.js',
-					'static_src/js/vendors/modernizr.js',
-					'static_src/js/vendors/jquery.js',
-					'static_src/js/vendors/jquery.uriAnchor.js',
-					'static_src/js/vendors/jquery.event.gevent.js',
-					'static_src/js/vendors/jquery.event.ue.js',
-					'static_src/js/vendors/jquery.validate.js',
-					'static_src/js/vendors/jquery.cookie.js',
-					'static_src/js/vendors/handlebars.runtime.js'
-				],
-				tasks: ['uglify'],
+				tasks: ['handlebars','uglify'],
 				options: {
 					livereload: true
 				}
@@ -131,12 +108,12 @@ module.exports = function(grunt) {
 		}
 	});
 
-	grunt.loadNpmTasks('grunt-run');
 	grunt.loadNpmTasks('grunt-sass');
+	grunt.loadNpmTasks('grunt-purifycss');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-coffee');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-contrib-handlebars');
-	grunt.registerTask('default', ['sass','coffee','handlebars','cssmin','run','uglify','watch']);
+	grunt.registerTask('default', ['sass','coffee','handlebars','cssmin','purifycss','uglify','watch']);
 }

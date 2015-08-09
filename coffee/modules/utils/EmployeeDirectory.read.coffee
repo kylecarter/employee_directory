@@ -69,7 +69,7 @@ EmployeeDirectory.read = do ->
         console.log jqXHR,textStatus,errorThrown
         $.cookie('loggedin', 'no')
         $.cookie('user','')
-        form.after('<div class="container-fluid"><div class="col-sm-12"><p style="margin-top: 18px; font-size: 0.775em;">The information provided does not match a known employee. Please check the information you entered and try again. If you contine to have problems contact IT.</p></div></div>')
+        $('#log-in').after('<div class="container-fluid"><div class="col-sm-12"><p style="margin-top: 18px; font-size: 0.775em;">The information provided does not match a known employee. Please check the information you entered and try again. If you contine to have problems contact IT.</p></div></div>')
         return
     return
 
