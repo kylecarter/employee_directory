@@ -1,0 +1,98 @@
+=cssArrow($place,$bordered,$size,$colors,$position)
+	position: relative
+	background: map-get($colors,main)
+	@if $bordered
+		&:after, &:before
+			border: solid transparent
+			pointer-events: none
+			position: absolute
+			content: " "
+			height: 0
+			width: 0
+			@if $place == top
+				bottom: 100%
+				left: $position
+			@else if $place == right
+				left: 100%
+				top: $position
+			@else if $place == bottom
+				top: 100%
+				left: $position
+			@else
+				right: 100%
+				top: $position
+		&:after
+			@if $place == top
+				border-color: map-get($colors,borderTrans)
+				border-bottom-color: map-get($colors,main)
+				border-width: ($size)+px
+				margin-left: -($size)+px
+			@else if $place == right
+				border-color: map-get($colors,borderTrans)
+				border-left-color: map-get($colors,main)
+				border-width: ($size)+px
+				margin-top: -($size)+px
+			@else if $place == bottom
+				border-color: map-get($colors,borderTrans)
+				border-top-color: map-get($colors,main)
+				border-width: ($size)+px
+				margin-left: -($size)+px
+			@else
+				border-color: map-get($colors,borderTrans)
+				border-right-color: map-get($colors,main)
+				border-width: ($size)px
+				margin-top: -($size)px
+		&:before
+			@if $place == top
+				border-color: map-get($colors,borderTrans)
+				border-bottom-color: map-get($colors,border)
+				border-width: ($size+1)+px
+				margin-left: -($size+1)+px
+			@else if $place == right
+				border-color: map-get($colors,borderTrans)
+				border-left-color: map-get($colors,border)
+				border-width: ($size+1)+px
+				margin-top: -($size+1)+px
+			@else if $place == bottom
+				border-color: map-get($colors,borderTrans)
+				border-top-color: map-get($colors,border)
+				border-width: ($size+1)+px
+				margin-left: -($size+1)+px
+			@else
+				border-color: map-get($colors,borderTrans)
+				border-right-color: map-get($colors,border)
+				border-width: ($size+1)+px
+				margin-top: -($size+1)+px
+	@else
+		&:after
+				border: solid transparent
+				pointer-events: none
+				border-width: $size+px
+				position: absolute
+				content: " "
+				height: 0
+				width: 0
+				@if $place == top
+					bottom: 100%
+					left: $position
+					margin-left: -$size+px
+					border-color: map-get($colors,mainTrans)
+					border-bottom-color: map-get($colors,main)
+				@else if $place == right
+					left: 100%
+					top: $position
+					margin-top: -$size+px
+					border-color: map-get($colors,mainTrans)
+					border-left-color: map-get($colors,main)
+				@else if $place == bottom
+					top: 100%
+					left: $position
+					margin-left: -$size+px
+					border-color: map-get($colors,mainTrans)
+					border-top-color: map-get($colors,main)
+				@else
+					right: 100%
+					top: $position
+					margin-top: -$size+px
+					border-color: map-get($colors,mainTrans)
+					border-right-color: map-get($colors,main)

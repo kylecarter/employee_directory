@@ -6,13 +6,13 @@ module.exports = function(grunt) {
 					style: 'expanded'
 				},
 				files: {
-					'static_src/css/style.css' : 'sass/style.scss'
+					'static_src/css/style.css' : 'sass/style.sass'
 				}
 			}
 		},
 		purifycss: {
 			target: {
-				src: ['public/**/*.html', 'hbs/**/*.hbs'],
+				src: ['public/**/*.html', 'hbs/**/*.hbs', 'static_src/js/vendor.js'],
 				css: ['static_src/css/vendor/**/*.css','static_src/css/style.css'],
 				dest: 'static_src/css/style.pure.css'
 			}
@@ -63,29 +63,38 @@ module.exports = function(grunt) {
 				}
 			}
 		},
+		concat: {
+			options: {
+				separator: '\n',
+			},
+			dist: {
+				src: [
+					'static_src/js/vendors/modernizr.js',
+					'static_src/js/vendors/jquery.js',
+					'static_src/js/vendors/jquery.uriAnchor.js',
+					'static_src/js/vendors/jquery.event.gevent.js',
+					'static_src/js/vendors/jquery.event.ue.js',
+					'static_src/js/vendors/jquery.validate.js',
+					'static_src/js/vendors/jquery.cookie.js',
+					'static_src/js/vendors/dropdown.js',
+					'static_src/js/vendors/modal.js',
+					'static_src/js/vendors/handlebars.runtime.js'
+				],
+				dest: 'static_src/js/vendor.js',
+			},
+		},
 		uglify: {
 			target: {
 				files: {
 					'public/js/controller.min.js' : ['static_src/js/controller.js'],
 					'public/js/view.min.js' : ['static_src/js/view.js'],
-					'public/js/vendor.min.js' : [
-						'static_src/js/vendors/modernizr.js',
-						'static_src/js/vendors/jquery.js',
-						'static_src/js/vendors/jquery.uriAnchor.js',
-						'static_src/js/vendors/jquery.event.gevent.js',
-						'static_src/js/vendors/jquery.event.ue.js',
-						'static_src/js/vendors/jquery.validate.js',
-						'static_src/js/vendors/jquery.cookie.js',
-						'static_src/js/vendors/dropdown.js',
-						'static_src/js/vendors/modal.js',
-						'static_src/js/vendors/handlebars.runtime.js'
-					]
+					'public/js/vendor.min.js' : ['static_src/js/vendor.js']
 				}
 			}
 		},
 		watch: {
 			sass: {
-				files: ['sass/**/*.scss'],
+				files: ['sass/**/*.sass'],
 				tasks: ['sass','purifycss','cssmin'],
 				options: {
 					livereload: true
@@ -93,14 +102,14 @@ module.exports = function(grunt) {
 			},
 			coffee: {
 				files: ['coffee/**/*.coffee'],
-				tasks: ['coffee','uglify'],
+				tasks: ['coffee','concat','uglify'],
 				options: {
 					livereload: true
 				}
 			},
 			handlebars: {
 				files: ['hbs/**/*.hbs'],
-				tasks: ['handlebars','uglify'],
+				tasks: ['handlebars','concat','uglify'],
 				options: {
 					livereload: true
 				}
@@ -111,9 +120,10 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-sass');
 	grunt.loadNpmTasks('grunt-purifycss');
 	grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-coffee');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-contrib-handlebars');
-	grunt.registerTask('default', ['sass','coffee','handlebars','cssmin','purifycss','uglify','watch']);
+	grunt.registerTask('default', ['sass','coffee','handlebars','cssmin','purifycss','concat','uglify','watch']);
 }

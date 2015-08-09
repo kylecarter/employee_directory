@@ -1,0 +1,24 @@
+.loggedout
+	background: #fff url('../img/login-bg.jpg') no-repeat 0 0
+	-webkit-background-size: cover
+	-moz-background-size: cover
+	background-size: cover
+	padding: 90px 0 90px
+	.panel
+		+box-shadow(0px,0px,20px,rgba(0,0,0,0.6),false)
+	 h2
+		margin-bottom: 33px
+	#log-in
+		.log-in__cmnpt
+			margin-bottom: 33px
+			input[type=text], input[type=password]
+				+inputs(medium,$serif,0)
+			&.has-error
+				label.has-error
+					color: inherit
+					display: block
+					font-weight: 400
+					margin-top: 6px
+					font-size: 0.775em
+		.disclosure
+			padding: 6px 0

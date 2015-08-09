@@ -1,0 +1,13 @@
+=box-shadow($x,$y,$blur,$color,$inset)
+	@if $inset
+		-webkit-box-shadow: inset $x $y $blur $color
+		-moz-box-shadow: inset $x $y $blur $color
+		-ms-box-shadow: inset $x $y $blur $color
+		-o-box-shadow: inset $x $y $blur $color
+		box-shadow: inset $x $y $blur $color
+	@else
+		-webkit-box-shadow: $x $y $blur $color
+		-moz-box-shadow: $x $y $blur $color
+		-ms-box-shadow: $x $y $blur $color
+		-o-box-shadow: $x $y $blur $color
+		box-shadow: $x $y $blur $color
